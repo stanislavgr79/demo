@@ -27,7 +27,7 @@ public class HomeController {
                     " you index page change by role");
             UserDetails userDetail = (UserDetails) auth.getPrincipal();
             System.out.println(". You: "+ userDetail.getUsername());
-            System.out.println("===========");
+            System.out.println("=========== ");
         }
 
         return "index";
