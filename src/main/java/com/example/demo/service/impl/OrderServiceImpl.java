@@ -1,0 +1,50 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.dao.repository.OrderDetailRepository;
+import com.example.demo.dao.repository.OrderRepository;
+import com.example.demo.domain.entity.person.Customer;
+import com.example.demo.domain.entity.shop.Order;
+import com.example.demo.domain.entity.shop.OrderDetail;
+import com.example.demo.service.CustomerOrderService;
+import com.example.demo.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+@Transactional
+public class OrderServiceImpl implements OrderService {
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    @Autowired
+    private CustomerOrderService customerOrderService;
+
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
+
+    @Override
+    @Transactional(readOnly = true)
+    public Order getOrderById(Long id) {
+        return orderRepository.findById(id).get();
+    }
+
+    @Override
+    public void updateOrder(Order order) {
+        double totalPrice = customerOrderService.getCustomerOrderTotalPrice(order.getId());
+        int totalQuantity = customerOrderService.getCustomerOrderTotalQuantity(order.getId());
+        order.setTotalPrice(totalPrice);
+        order.setTotalQuantity(totalQuantity);
+        orderRepository.save(order);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<OrderDetail> getListOrderDetailByOrderId(Long orderId) {
+        return orderDetailRepository.findOrderDetailsByOrder_Id(orderId);
+    }
+
+}
