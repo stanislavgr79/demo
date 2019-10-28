@@ -32,20 +32,20 @@ public class OrderController {
     private OrderDetailService orderDetailService;
 
     @RequestMapping(value = "order/getCurrentOrder", method = RequestMethod.GET)
-    public ModelAndView getCurrentOrder(Model model) {
+    public String getCurrentOrder(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
         UserDetails userDetail = (UserDetails) auth.getPrincipal();
-//        if (userDetail == null) {
-//            return "redirect:/user/registration";
-//        }
+        if (userDetail == null) {
+            return "redirect:/user/registration";
+        }
         Customer customer = customerService.getCustomerByEmail(email);
         Order order = customer.getOrder();
-//        List<OrderDetail> orderDetailList = order.getOrderDetail();
-//        model.addAttribute("order", order);
-//        model.addAttribute("orderDetail", orderDetailList);
-//        return "order";
-        return new ModelAndView("order", "order", order);
+        List<OrderDetail> orderDetailList = order.getOrderDetail();
+        model.addAttribute("order", order);
+        model.addAttribute("orderDetail", orderDetailList);
+        return "order";
+//        return new ModelAndView("order", "order", order);
     }
 
 

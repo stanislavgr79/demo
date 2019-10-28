@@ -13,5 +13,8 @@
 <%@ include file="fon.jsp"%>
 <%@ include file="footer.jsp"%>
 
+
+<%--pageContext.request.userPrincipal.name--%>
+
 </body>
 </html>
