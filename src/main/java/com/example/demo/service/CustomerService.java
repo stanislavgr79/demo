@@ -19,5 +19,4 @@ public interface CustomerService {
 
     void updateCustomer(Customer customer);
 
-    void saveOrderAndCreateNewOrder(Customer customer);
 }

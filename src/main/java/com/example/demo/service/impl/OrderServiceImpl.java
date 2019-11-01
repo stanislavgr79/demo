@@ -33,11 +33,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrder(Order order) {
-        double totalPrice = customerOrderService.getCustomerOrderTotalPrice(order.getId());
-        int totalQuantity = customerOrderService.getCustomerOrderTotalQuantity(order.getId());
-        order.setTotalPrice(totalPrice);
-        order.setTotalQuantity(totalQuantity);
+    public void saveOrder(Order order) {
+//        double totalPrice = customerOrderService.getCustomerOrderTotalPrice(order.getId());
+//        int totalQuantity = customerOrderService.getCustomerOrderTotalQuantity(order.getId());
+//        order.setTotalPrice(totalPrice);
+//        order.setTotalQuantity(totalQuantity);
         orderRepository.save(order);
     }
 

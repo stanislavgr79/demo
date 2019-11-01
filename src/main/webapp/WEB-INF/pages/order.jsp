@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="fmt" uri="http://www.springframework.org/tags/form" %>
 <%@ page isELIgnored="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -11,98 +10,98 @@
     <title>Cart</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
-    </script>
-    <script
-            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-    </script>
+    <link rel="stylesheet" href="<c:url value="/resource/bootstrap/css/bootstrap.min.css"/>">
+    <script src="<c:url value="/resource/js/jquery.js"/>"></script>
+    <script src="<c:url value="/resource/bootstrap/js/bootstrap.min.js"/>"></script>
 
 </head>
-
-<body>
 <%@ include file="navbar.jsp" %>
 <%@ include file="fon.jsp"%>
 <%@ include file="footer.jsp"%>
+<body>
+
+
 
 <h2>BASKET</h2>
 <p>The List Products for purchase</p>
 
 <div class="description" >
-        Total quantity: ${order.totalQuantity}
+        Total quantity: ${Basket.totalQuantity}
 </div>
 
 <div class="description">
-        Total price: ${order.totalPrice}</div>
+        Total price: ${Basket.totalPrice}
+</div>
+
+<div>
+    <a href="<c:url value="/order/removeAllDetails" />"
+       class="btn btn-success" style="margin-left: 15px"  title="deleteAllRows" >
+        <input class="button-update-sc" type="submit" value="Clear basket" style="color: #0f0f0f"/>
+    </a>
 </div>
 
 
-
-<c:url value="/order/getCurrentOrder" var="url"></c:url>
-<form:form method="post" action="${url}" modelAttribute="order">
-
-
+<form:form action="/order/getCurrentOrder" method="post" modelAttribute="Basket"  >
 
     <table class="table table" width="99%" style="width: available">
-        <thead>
-        <tr>
-            <th>OrderDetail Id</th>
-            <th>Product Name</th>
-            <th>Product Price</th>
-            <th>Products Quantity</th>
-            <th>Products TotalPrice</th>
-            <th>Delete</th>
-        </tr>
-        </thead>
 
-        <tbody>
-        <c:forEach items="${order.orderDetail}" var="orderD"
-                   varStatus="varStatus" >
-        <div class="product-preview-container">
+                <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>Products Quantity</th>
+                    <th>Products TotalPrice</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+
+    <tbody>
+
+        <c:forEach items="${Basket.orderDetail}" var="od" varStatus="tagStatus">
             <tr>
-                <td>${orderD.id}</td>
-                <td>${orderD.product.productName}</td>
-                <td>${orderD.product.productPrice}</td>
-                <td>${orderD.quantity}</td>
-<%--                <td><form:input path="[${tagStatus.index}].quantity" value="${orderD.quantity}"/>--%>
-<%--                <td><form:input path="orderdetail[${varStatus.index}].quantity"--%>
-<%--                                value="${orderD.quantity}" readonly="false"/></td>--%>
-<%--                <td><form:input path="${orderD.quantity}"></form:input></td>--%>
-                <td>${orderD.subTotalPrice}</td>
+                <form:hidden path="orderDetail[${tagStatus.index}].product.id" value="${od.product.id}" readonly="true"/>
+                <td><form:input path="orderDetail[${tagStatus.index}].product.productName" value="${od.product.productName}" readonly="true"/></td>
+                <td><form:input path="orderDetail[${tagStatus.index}].product.productPrice" value="${od.product.productPrice}" readonly="true"/></td>
+                <td><form:input path="orderDetail[${tagStatus.index}].quantity" value="${od.quantity}" readonly="false"/></td>
+                <td><form:input path="orderDetail[${tagStatus.index}].subTotalPrice" value="${od.subTotalPrice}" readonly="true"/></td>
+
                 <td>
-                    <a href="<c:url value="/order/removeOrderDetail/${orderD.id}" />"
+                      <a href="<c:url value="/order/removeOrderDetail/${od.product.id}" />"
                          class="btn btn-danger" style="margin-left: 15px">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
+                         <span class="glyphicon glyphicon-remove"></span>
+                       </a>
                 </td>
             </tr>
-        </div>
         </c:forEach>
-        </tbody>
+
+    </tbody>
+
     </table>
-    <div class="form-actions">
-        <button type="submit" class="btn btn-lg btn-info">Update</button>
-    </div>
 
-<%--        <div>--%>
-<%--            <input class="button-update-sc" type="submit" value="Update order" />--%>
-<%--            <a class="navi-item"--%>
-<%--               href="${url}"></a>--%>
-<%--        </div>--%>
 
-</form:form>
+<a
+<%--    <input type = "submit" name = "action1" value="Action1"--%>
+           class="btn btn-success" style="margin-left: 15px">
+    <input class="button-update-sc" type="submit" name="action1" value="Update quantity." style="color: #0f0f0f"/>
+<a/>
 
+
+    <a
+<%--    <input type = "submit" name = "action2"--%>
+    class="btn btn-success" style="margin-left: 15px">
+    <input class="button-update-sc" type="submit" name="action2" value="Success buy." style="color: #0f0f0f"/>
+</a>
+
+    </form:form>
 
 </body>
 
-</div>
-<c:url value="/order/removeAllDetails/${order.id}" var="url2"></c:url>
-<a href="${url2}" class="btn btn-default" style="margin-left: 20px">Clear Basket</a>
-</div>
 
-</div>
-<c:url value="/getAllProducts" var="url3"></c:url>
-<a href="${url3}" class="btn btn-default" style="margin-left: 20px">Continue Shopping</a>
+<div>
+    <a href="<c:url value="/getAllProducts" />"
+       class="btn btn-success" style="margin-left: 15px"  title="Continue Shopping..." >
+        <input class="button-update-sc" type="submit" value="Continue Shopping..." style="color: #0f0f0f"/>
+    </a>
 </div>
 
 </html>

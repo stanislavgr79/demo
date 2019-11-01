@@ -14,7 +14,5 @@
 <%@ include file="footer.jsp"%>
 
 
-<%--pageContext.request.userPrincipal.name--%>
-
 </body>
 </html>

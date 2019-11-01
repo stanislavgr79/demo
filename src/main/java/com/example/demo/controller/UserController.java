@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import com.example.demo.domain.entity.person.Address;
 import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.person.User;
-import com.example.demo.domain.entity.shop.Order;
 import com.example.demo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,11 +28,9 @@ public class UserController {
     public ModelAndView  getRegistrationForm() {
         Customer customer = new Customer();
         User user = new User();
-        Order order = new Order();
         Address address = new Address();
         customer.setAddress(address);
         customer.setUser(user);
-        customer.setOrder(order);
         return new ModelAndView("register", "customer", customer);
     }
 
@@ -55,7 +52,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/saveCustomers", method = RequestMethod.POST)
-    public void saveCustomers(@ModelAttribute("Customers") List<Customer> customerList) throws Exception{
+    public void saveCustomers(@ModelAttribute("Customers") List<Customer> customerList) {
        for(Customer customer: customerList) {
            customerService.updateCustomer(customer);
        }
@@ -85,12 +82,4 @@ public class UserController {
         return "redirect:/admin/getAllCustomers";
     }
 
-
-
-//    @RequestMapping("admin/customer/update/{id}")
-//    public String editCustomer(@PathVariable("id") Long id, Model model){
-//        model.addAttribute("customer", customerService.getCustomerById(id));
-//        model.addAttribute("customers", customerService.getAllCustomers());
-//        return "";
-//    }
 }

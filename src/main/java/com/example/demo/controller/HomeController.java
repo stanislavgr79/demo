@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -14,22 +13,6 @@ public class HomeController {
 
     @RequestMapping(value = { "index", "home"}, method = RequestMethod.GET)
     public String doIndex() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String email = auth.getName();
-        if(email.equals("anonymousUser")){
-            System.out.println("========");
-            System.out.println("index controllerGET say: email principal context : " + email +
-                    " you index page not have role view");
-            System.out.println("========");
-        } else {
-            System.out.println("==========");
-            System.out.print("index controllerGET say: email principal context : " + email +
-                    " you index page change by role");
-            UserDetails userDetail = (UserDetails) auth.getPrincipal();
-            System.out.println(". You: "+ userDetail.getUsername());
-            System.out.println("=========== ");
-        }
-
         return "index";
     }
 

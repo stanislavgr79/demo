@@ -14,6 +14,7 @@ import org.springframework.lang.NonNull;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,21 +34,21 @@ public class User implements Serializable {
     private Long id;
 
     @NonNull
-//    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
-//            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
-//            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
-//            message="{invalid.email}")
-    @Email(message = "*Please provide a valid Email")
-    @Column(nullable = false, unique = true, length = 64)
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+            message="{invalid.email}")
+//    @Email(message = "*Please provide a valid Email")
+//    @Column(nullable = false, unique = true, length = 64)
 //    @Unique(service = UserService.class, fieldName = "email", message = "{email.unique.violation}")
     @NotEmpty(message = "*Please provide an email")
     private String email;
 
-    @Length(min = 5, message = "*Your password must have at least 5 characters")
-    @NotEmpty(message = "*Please provide your password")
+//    @Length(min = 5, message = "*Your password must have at least 5 characters")
+//    @NotEmpty(message = "*Please provide your password")
     @NonNull
     private String password;
-//    private boolean active;
+    private boolean active = true;
 
     @OneToOne(mappedBy = "user")
     private Customer customer;
@@ -61,13 +62,13 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public void addRole(Role role){
-        roles.add(role);
-        role.getUsers().add(this);
-    }
-
-    public void removeRole(Role role){
-        roles.remove(role);
-        role.getUsers().remove(this);
-    }
+//    public void addRole(Role role){
+//        roles.add(role);
+//        role.getUsers().add(this);
+//    }
+//
+//    public void removeRole(Role role){
+//        roles.remove(role);
+//        role.getUsers().remove(this);
+//    }
 }

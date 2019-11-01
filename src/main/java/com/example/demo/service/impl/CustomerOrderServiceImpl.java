@@ -18,37 +18,37 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     @Autowired
     private CustomerOrderRepository customerOrderRepository;
 
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
+//    @Autowired
+//    private OrderDetailRepository orderDetailRepository;
 
     @Override
     public void saveCustomerOrder(CustomerOrder customerOrder) {
         customerOrderRepository.save(customerOrder);
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public double getCustomerOrderTotalPrice(Long basketId) {
-
-        List<OrderDetail> orderDetail =
-                orderDetailRepository.findOrderDetailsByOrder_Id(basketId);
-
-        return  orderDetail.stream()
-                .mapToDouble(o-> o.getQuantity()*o.getProductPrice())
-                .sum();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public int getCustomerOrderTotalQuantity(Long basketId) {
-
-        List<OrderDetail> orderDetail =
-                orderDetailRepository.findOrderDetailsByOrder_Id(basketId);
-
-        return orderDetail.stream()
-                .mapToInt(OrderDetail::getQuantity)
-                .sum();
-    }
+//    @Override
+//    @Transactional(readOnly = true)
+//    public double getCustomerOrderTotalPrice(Long basketId) {
+//
+//        List<OrderDetail> orderDetail =
+//                orderDetailRepository.findOrderDetailsByOrder_Id(basketId);
+//
+//        return  orderDetail.stream()
+//                .mapToDouble(o-> o.getQuantity()*o.getProductPrice())
+//                .sum();
+//    }
+//
+//    @Override
+//    @Transactional(readOnly = true)
+//    public int getCustomerOrderTotalQuantity(Long basketId) {
+//
+//        List<OrderDetail> orderDetail =
+//                orderDetailRepository.findOrderDetailsByOrder_Id(basketId);
+//
+//        return orderDetail.stream()
+//                .mapToInt(OrderDetail::getQuantity)
+//                .sum();
+//    }
 
     @Override
     @Transactional(readOnly = true)

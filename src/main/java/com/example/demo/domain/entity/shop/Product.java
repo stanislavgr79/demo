@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "product")
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "description")
 public class Product implements Serializable {
 
     @Id

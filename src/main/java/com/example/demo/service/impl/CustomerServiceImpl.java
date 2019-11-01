@@ -6,8 +6,10 @@ import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.person.Role;
 import com.example.demo.domain.entity.person.User;
 import com.example.demo.domain.entity.shop.Order;
+import com.example.demo.domain.model.Basket;
 import com.example.demo.service.CustomerService;
 import com.example.demo.service.OrderService;
+import com.example.demo.service.UserService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +32,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private UserService userService;
+
+
+
     @Override
     @Transactional(readOnly = true)
     public List<Customer> getAllCustomers() {
@@ -44,8 +51,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void createCustomer(Customer customer) {
-        Order order = new Order();
-        customer.setOrder(order);
         User user = customer.getUser();
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Set<Role> roles = user.getRoles();
@@ -56,24 +61,15 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void saveOrderAndCreateNewOrder(Customer customer) {
-        Order order = customer.getOrder();
-        customer.getOrdersList().add(order);
-        Order newOrder = new Order();
-        customer.setOrder(newOrder);
-        customerRepository.save(customer);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public Customer getCustomerByEmail(String email) {
         return customerRepository.getByUser_Email(email);
     }
 
-
     @Override
     public void deleteCustomer(Long id) {
-        customerRepository.deleteById(id);
+        Long idUser = customerRepository.findById(id).get().getUser().getId();
+        userService.deleteUser(idUser);
     }
 
     @Override
@@ -81,5 +77,12 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.save(customer);
     }
 
-
+//    @Override
+//    public void saveOrderAndCreateNewOrder(Customer customer) {
+//        Order order = customer.getOrder();
+//        customer.getOrdersList().add(order);
+//        Order newOrder = new Order();
+//        customer.setOrder(newOrder);
+//        customerRepository.save(customer);
+//    }
 }

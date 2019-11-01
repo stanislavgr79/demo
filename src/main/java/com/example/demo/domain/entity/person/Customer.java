@@ -1,10 +1,15 @@
 package com.example.demo.domain.entity.person;
 
 import com.example.demo.domain.entity.shop.Order;
+import com.example.demo.domain.model.Basket;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -41,10 +46,18 @@ public class Customer implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "order_id")
-    private Order order;
+//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+//    @JoinColumn(name = "order_id")
+//    private Order order;
 
-    @Transient
+    @Fetch(FetchMode.SELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "customer")
     private List<Order> ordersList = new ArrayList<>();
+
+
+    public void addOrder(Order order){
+        ordersList.add(order);
+    }
+
 }

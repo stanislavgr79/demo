@@ -29,21 +29,22 @@ public class OrderDetail implements Serializable {
     private int quantity;
     private double price;
 
+
     @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "product_id")
-//    , foreignKey = @ForeignKey(name = "ORDER_DETAIL_PROD_FK"))
     private Product product;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "orders_id")
-//    , foreignKey = @ForeignKey(name = "ORDER_DETAIL_ORD_FK"))
     private Order order;
 
 
     public double getSubTotalPrice() {
-        return quantity * getProductPrice();
+       double price = quantity * getProductPrice();
+                this.setPrice(price);
+        return price;
     }
 
     public double getProductPrice() {

@@ -32,31 +32,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User " + email + " was not found in the database");
         }
 
-        System.out.println("========");
-        System.out.println("User detail say: i am Found User: " + user.getEmail());
-
-
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
         for (Role role: user.getRoles()){
-            System.out.println("UserDetailservice say: do get from User set<Role> any role - i find current role :" + role.getName());
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
-            System.out.println("to Set<GrantedAuthority> add : new SimpleGrantedAuthority(role.getName())");
         }
 
-        System.out.println("view Set<GrantedAuthority> : ");
-
-        grantedAuthorities.forEach(o-> System.out.println("this roles add to set: " + o.getAuthority()));
         UserDetails userDetails = new org.springframework.security.core.userdetails
                 .User(user.getEmail(), user.getPassword(), grantedAuthorities);
 
-        System.out.println("from UserDetailsServiceImpl implements UserDetailsService : i return class UserDetails:");
-        System.out.println(userDetails.getUsername());
-        userDetails.getAuthorities().stream().forEach(o-> System.out.println(((GrantedAuthority) o).getAuthority()));
-        System.out.println("=======");
-
         return userDetails;
-
 
     }
 
