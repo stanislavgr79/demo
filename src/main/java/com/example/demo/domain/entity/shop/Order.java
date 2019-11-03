@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-//!!
 @Getter
 @Setter
 @Entity
@@ -36,21 +35,21 @@ public class Order implements Serializable {
 
     private int totalQuantity;
 
-    public void addOrderDetail(OrderDetail orderDetail) {
-        orderDetail.setOrder(this);
-        this.orderDetail.add(orderDetail);
-    }
-
-    public void removeOrderDetail(OrderDetail orderDetail) {
-        this.orderDetail.remove(orderDetail);
-        orderDetail.setOrder(null);
-    }
-
-    public void clearOrderDetail() {
-        for (OrderDetail od : orderDetail) {
-            od.setOrder(null);
-        }
-        orderDetail.clear();
-    }
+//    public void addOrderDetail(OrderDetail orderDetail) {
+//        orderDetail.setOrder(this);
+//        this.orderDetail.add(orderDetail);
+//    }
+//
+//    public void removeOrderDetail(OrderDetail orderDetail) {
+//        this.orderDetail.remove(orderDetail);
+//        orderDetail.setOrder(null);
+//    }
+//
+//    public void clearOrderDetail() {
+//        for (OrderDetail od : orderDetail) {
+//            od.setOrder(null);
+//        }
+//        orderDetail.clear();
+//    }
 
 }

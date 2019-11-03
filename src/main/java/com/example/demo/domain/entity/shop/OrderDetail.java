@@ -13,7 +13,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import javax.persistence.*;
 import java.io.Serializable;
 
-//!!
+
 @Getter
 @Setter
 @Entity
@@ -41,11 +41,11 @@ public class OrderDetail implements Serializable {
     private Order order;
 
 
-    public double getSubTotalPrice() {
-       double price = quantity * getProductPrice();
-                this.setPrice(price);
-        return price;
-    }
+//    public double getSubTotalPrice() {
+//       double price = quantity * getProductPrice();
+//                this.setPrice(price);
+//        return price;
+//    }
 
     public double getProductPrice() {
         return product.getProductPrice();

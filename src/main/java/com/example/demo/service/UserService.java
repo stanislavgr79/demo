@@ -6,9 +6,7 @@ import com.example.demo.domain.entity.person.User;
 import java.util.List;
 
 
-public interface UserService
-//        extends FieldValueExists
-{
+public interface UserService {
 
     List<User> getAllUsers();
 
@@ -21,4 +19,6 @@ public interface UserService
     void createUser(User user);
 
     List<String> rolesByUserId(Long id);
+
+    void updateUserStatus(User user);
 }

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -51,15 +52,20 @@
                             <input class="form-control" placeholder="Password"
                                    name="j_password" type="password">
                         </div>
+<%--                        <c:if test="${not empty error}">--%>
                         <div class="checkbox">
                             <c:if test="${not empty error}">
                                 <div class="error" style="color: #ff0000">${error}</div>
                             </c:if>
                         </div>
-
-                        <div id="button">
+<%--                        <form:hidden path="${}" id="cust"></form:hidden>--%>
+<%--                        <div id="button">--%>
+                        <div class="form-actions">
                             <button type="submit" class="btn btn-sm btn-success"
-                                    style="margin-right: 100px; margin-left: 60px">Login</button>
+                                    style="margin-right: 100px; margin-left: 60px"
+<%--                                    onclick="return Validate()"--%>
+                            >Login</button>
+
                             <a href="<c:url value="/user/registration"/>"
                                class="btn btn-sm btn-success">Register</a>
                         </div>
@@ -73,3 +79,30 @@
 <%@ include file="footer.jsp"%>
 </body>
 </html>
+
+<%--<script type="text/javascript">--%>
+
+
+<%--    /**--%>
+<%--     * @return {boolean}--%>
+<%--     */--%>
+<%--    function Validate() {--%>
+<%--        var customer = document.getElementById("customer").value;--%>
+<%--        // var checkpass = document.getElementById("checkpass").value;--%>
+
+<%--        if (${!customer.user.enabled}) {--%>
+<%--            alert("customer disabled");--%>
+<%--            return false;--%>
+<%--        }--%>
+<%--        // if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById("email").value))--%>
+<%--        // {--%>
+<%--        //     return true;--%>
+<%--        // } else {--%>
+<%--        //     alert("Invalid email address!");--%>
+<%--        //     return false;--%>
+<%--        // }--%>
+
+<%--        return true;--%>
+<%--    }--%>
+
+<%--</script>--%>

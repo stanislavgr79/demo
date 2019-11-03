@@ -5,10 +5,7 @@ import com.example.demo.dao.repository.RoleRepository;
 import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.person.Role;
 import com.example.demo.domain.entity.person.User;
-import com.example.demo.domain.entity.shop.Order;
-import com.example.demo.domain.model.Basket;
 import com.example.demo.service.CustomerService;
-import com.example.demo.service.OrderService;
 import com.example.demo.service.UserService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,12 +74,4 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.save(customer);
     }
 
-//    @Override
-//    public void saveOrderAndCreateNewOrder(Customer customer) {
-//        Order order = customer.getOrder();
-//        customer.getOrdersList().add(order);
-//        Order newOrder = new Order();
-//        customer.setOrder(newOrder);
-//        customerRepository.save(customer);
-//    }
 }

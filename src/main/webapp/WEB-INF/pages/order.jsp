@@ -79,16 +79,11 @@
     </table>
 
 
-<a
-<%--    <input type = "submit" name = "action1" value="Action1"--%>
-           class="btn btn-success" style="margin-left: 15px">
+<a class="btn btn-success" style="margin-left: 15px">
     <input class="button-update-sc" type="submit" name="action1" value="Update quantity." style="color: #0f0f0f"/>
 <a/>
 
-
-    <a
-<%--    <input type = "submit" name = "action2"--%>
-    class="btn btn-success" style="margin-left: 15px">
+    <a class="btn btn-success" style="margin-left: 15px">
     <input class="button-update-sc" type="submit" name="action2" value="Success buy." style="color: #0f0f0f"/>
 </a>
 

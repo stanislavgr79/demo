@@ -31,10 +31,8 @@ public class Customer implements Serializable {
     private Long id;
 
     @NonNull
-    @NotEmpty(message = "*Please provide your name")
     private String firstName;
 
-    @NotEmpty(message = "*Please provide your last name")
     @NonNull
     private String lastName;
 
@@ -46,15 +44,10 @@ public class Customer implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-//    @JoinColumn(name = "order_id")
-//    private Order order;
-
     @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "customer")
     private List<Order> ordersList = new ArrayList<>();
-
 
     public void addOrder(Order order){
         ordersList.add(order);

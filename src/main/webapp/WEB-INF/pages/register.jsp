@@ -25,86 +25,92 @@
     <div class="col-lg-12 well">
         <div class="row">
 
+
+
             <c:url var="add" value="/user/registration"></c:url>
-            <form:form method="post" action="${add}" modelAttribute="customer"
+            <form:form method="post" action="${add}" modelAttribute="registerForm"
                        enctype="multipart/form-data">
+
                 <div class="col-sm-12">
 
                     <div class="row">
                         <div class="form-group">
-                            <form:label path="">User detail</form:label>
+<%--                            <form:label path="">User detail</form:label>--%>
                         </div>
                         <div class="col-sm-6 form-group">
                             <form:label path="firstName">First Name</form:label>
                             <form:input type="text" placeholder="Enter First Name.."
                                         class="form-control" path="firstName"></form:input>
-                            <form:errors path="firstName"></form:errors>
+                            <form:errors path="firstName" cssClass="error" cssStyle="color: #761c19"></form:errors>
                         </div>
+
                         <div class="col-sm-6 form-group">
                             <form:label path="lastName">Last Name</form:label>
                             <form:input type="text" placeholder="Enter Last Name.."
                                         class="form-control" path="lastName"></form:input>
-                            <form:errors path="lastName"></form:errors>
+                            <form:errors path="lastName" cssClass="error" cssStyle="color: #761c19"></form:errors>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-sm-6 form-group">
-                            <form:label path="user.email">Email</form:label>
+                            <form:label path="email">Email</form:label>
                             <form:input type="text" placeholder="Enter Email.."
-                                        class="form-control" path="user.email" id="email"></form:input>
-                            <form:errors path="user.email"></form:errors>
+                                        class="form-control" path="email"></form:input>
+                            <form:errors path="email" cssClass="error" cssStyle="color: #761c19"></form:errors>
                         </div>
                     </div>
 
                     <hr>
+
                     <div class="form-group">
-                        <form:label path="address">Address</form:label>
+<%--                        <form:label path="address">Address</form:label>--%>
                     </div>
                     <div class="row">
                         <div class="col-sm-6 form-group">
-                            <form:label path="address.country">Country</form:label>
+                            <form:label path="country">Country</form:label>
                             <form:input type="text" placeholder="Enter Country.."
-                                        class="form-control" path="address.country"></form:input>
-                            <form:errors path="address.country"></form:errors>
+                                        class="form-control" path="country"></form:input>
+                            <form:errors path="country" cssClass="error" cssStyle="color: #761c19"></form:errors>
                         </div>
                         <div class="col-sm-6 form-group">
-                            <form:label path="address.city">City</form:label>
+                            <form:label path="city">City</form:label>
                             <form:input type="text" placeholder="Enter city"
-                                        class="form-control" path="address.city"></form:input>
-                            <form:errors path="address.city"></form:errors>
+                                        class="form-control" path="city"></form:input>
+                            <form:errors path="city" cssClass="error" cssStyle="color: #761c19"></form:errors>
                         </div>
                         <div class="col-sm-6 form-group">
-                            <form:label path="address.street">Street</form:label>
+                            <form:label path="street">Street</form:label>
                             <form:input type="text" placeholder="Enter street"
-                                        class="form-control" path="address.street"></form:input>
-                            <form:errors path="address.street"></form:errors>
+                                        class="form-control" path="street"></form:input>
+                            <form:errors path="street" cssClass="error" cssStyle="color: #761c19"></form:errors>
                         </div>
                         <div class="col-sm-6 form-group">
-                            <form:label path="address.flat">Flat</form:label>
+                            <form:label path="flat">Flat</form:label>
                             <form:input type="text" placeholder="Enter flat"
-                                        class="form-control" path="address.flat"></form:input>
-                            <form:errors path="address.flat"></form:errors>
+                                        class="form-control" path="flat"></form:input>
+                            <form:errors path="flat" cssClass="error" cssStyle="color: #761c19"></form:errors>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-sm-6 form-group">
-                            <form:label path="user.password">Password</form:label>
+                            <form:label path="password">Password</form:label>
                             <form:input type="password" placeholder="********"
-                                        class="form-control" path="user.password" id="pass"></form:input>
+                                        class="form-control" path="password"></form:input>
+                            <form:errors path="password" cssClass="error" cssStyle="color: #761c19"></form:errors>
                         </div>
                         <div class="col-sm-6 form-group">
-                            <label>Confirm Password</label>
-                            <input type="password"
-                                   placeholder="********" class="form-control"
-                                   id="confirmpass"/>
+                            <form:label path="confirmPassword">Password</form:label>
+                            <form:input type="password" placeholder="********"
+                                        class="form-control" path="confirmPassword"></form:input>
+                            <form:errors path="confirmPassword" cssClass="error" cssStyle="color: #761c19"></form:errors>
                         </div>
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-lg btn-info"
-                                onclick="return Validate()">Submit
+                        <button type="submit" class="btn btn-lg btn-info" >Submit
+<%--                                onclick="return Validate()">Submit--%>
                         </button>
                     </div>
                 </div>
@@ -115,32 +121,32 @@
 
 
 
-<script type="text/javascript">
+<%--<script type="text/javascript">--%>
 
 
-    /**
-     * @return {boolean}
-     */
-    function Validate() {
-        var password = document.getElementById("pass").value;
-        var checkpass = document.getElementById("checkpass").value;
+<%--    /**--%>
+<%--     * @return {boolean}--%>
+<%--     */--%>
+<%--    function Validate() {--%>
+<%--        var password = document.getElementById("pass").value;--%>
+<%--        var checkpass = document.getElementById("checkpass").value;--%>
 
-        if (password !== checkpass) {
-            alert("Password does Not Match.");
-            return false;
-        }
-        // if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById("email").value))
-        // {
-        //     return true;
-        // } else {
-        //     alert("Invalid email address!");
-        //     return false;
-        // }
+<%--        if (password !== checkpass) {--%>
+<%--            alert("Password does Not Match.");--%>
+<%--            return false;--%>
+<%--        }--%>
+<%--        // if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById("email").value))--%>
+<%--        // {--%>
+<%--        //     return true;--%>
+<%--        // } else {--%>
+<%--        //     alert("Invalid email address!");--%>
+<%--        //     return false;--%>
+<%--        // }--%>
 
-        return true;
-    }
+<%--        return true;--%>
+<%--    }--%>
 
-</script>
+<%--</script>--%>
 
 </body>
 </html>

@@ -11,8 +11,8 @@
           href="<c:url value="/resource/bootstrap/css/bootstrap.min.css"/>">
     <script src="<c:url value="/resource/js/jquery.js"/>"></script>
     <script src="<c:url value="/resource/bootstrap/js/bootstrap.min.js"/>"></script>
-<%--    <link rel="stylesheet" type="text/css"--%>
-<%--          href="<c:url value="/resource/css/overall.css"/>">--%>
+    <link rel="stylesheet" type="text/css"
+          href="<c:url value="/resource/css/overall.css"/>">
 
 </head>
 <body>

@@ -2,10 +2,8 @@ package com.example.demo.service.impl;
 
 import com.example.demo.dao.repository.OrderDetailRepository;
 import com.example.demo.dao.repository.OrderRepository;
-import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.shop.Order;
 import com.example.demo.domain.entity.shop.OrderDetail;
-import com.example.demo.service.CustomerOrderService;
 import com.example.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +19,6 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
-    private CustomerOrderService customerOrderService;
-
-    @Autowired
     private OrderDetailRepository orderDetailRepository;
 
     @Override
@@ -34,10 +29,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void saveOrder(Order order) {
-//        double totalPrice = customerOrderService.getCustomerOrderTotalPrice(order.getId());
-//        int totalQuantity = customerOrderService.getCustomerOrderTotalQuantity(order.getId());
-//        order.setTotalPrice(totalPrice);
-//        order.setTotalQuantity(totalQuantity);
         orderRepository.save(order);
     }
 

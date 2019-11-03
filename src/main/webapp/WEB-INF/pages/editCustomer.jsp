@@ -28,35 +28,64 @@
     <div class="col-lg-12 well">
         <div class="row">
 
-            <c:url value="/admin/product/update/" var="url"></c:url>
-            <form:form method="post" modelAttribute="product" action="${url}">
+<%--            <c:url value="admin/customer/update" var="url"></c:url>--%>
+            <form:form method="post" modelAttribute="customer" action="/admin/customer/update">
                 <div class="col-sm-12">
                     <div class="row">
                         <div class="col-sm-6 form-group">
-                            <form:label path="id">Product Id</form:label>
-                            <form:input type="text" placeholder="Edit Product Id"
+                            <form:label path="id">Customer Id</form:label>
+                            <form:input type="text" placeholder="Customer Id"
                                         class="form-control" path="id" readonly="true"></form:input>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-6 form-group">
-                            <form:label path="productName">Product Name</form:label>
-                            <form:input type="text" placeholder="Enter Product Name.."
-                                        class="form-control" path="productName"></form:input>
+                            <form:label path="firstName">First Name</form:label>
+                            <form:input type="text" placeholder="Customer First Name"
+                                        class="form-control" path="firstName" readonly="true"></form:input>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <form:label path="lastName">First Name</form:label>
+                            <form:input type="text" placeholder="Customer First Name"
+                                        class="form-control" path="lastName" readonly="true"></form:input>
                         </div>
                     </div>
+                    <form:hidden path="user.id" ></form:hidden>
+
                     <div class="form-group">
-                        <form:label path="description">Product Description</form:label>
-                        <form:textarea type="text" placeholder="Enter First Name.."
-                                       class="form-control" path="description"></form:textarea>
+                        <form:label path="user.email">User detail</form:label>
+                        <form:input type="text" placeholder="User email"
+                                       class="form-control" path="user.email" readonly="true"></form:input>
+                    </div>
+
+                    <div class="col-sm-4 form-group">
+                        <form:label path="user.enabled">Is enabled</form:label>
+                        <form:checkbox placeholder="User is enabled"
+                                       class="form-control" path="user.enabled"></form:checkbox>
                     </div>
                     <div class="col-sm-4 form-group">
-                        <form:label path="productPrice">Product Price</form:label>
-                        <form:input type="text" placeholder="Enter Product Price.."
-                                    class="form-control" path="productPrice"></form:input>
+                        <form:label path="user.accountNonExpired">Is AccountNonExpired</form:label>
+                        <form:checkbox placeholder="User is AccountNonExpired"
+                                       class="form-control" path="user.accountNonExpired"></form:checkbox>
                     </div>
+                    <div class="col-sm-4 form-group">
+                        <form:label path="user.credentialsNonExpired">Is CredentialsNonExpired</form:label>
+                        <form:checkbox placeholder="User is CredentialsNonExpired"
+                                       class="form-control" path="user.credentialsNonExpired"></form:checkbox>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <form:label path="user.accountNonLocked">Is isAccountNonLocked</form:label>
+                        <form:checkbox placeholder="User AccountNonLocked"
+                                       class="form-control" path="user.accountNonLocked"></form:checkbox>
+                    </div>
+                </div>
+
+                    <div class="row">
                     <div class="form-actions">
                         <button type="submit" class="btn btn-lg btn-info">Update</button>
                     </div>
-                </div>
+                    </div>
+
             </form:form>
         </div>
     </div>

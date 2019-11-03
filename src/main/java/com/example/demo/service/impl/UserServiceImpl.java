@@ -65,17 +65,14 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
-    // check exists email
-//    @Override
-//    @Transactional(readOnly = true)
-//    public boolean fieldValueExists(Object value, String fieldName) throws UnsupportedOperationException {
-//        Assert.notNull(fieldName);
-//        if (!fieldName.equals("email")) {
-//            throw new UnsupportedOperationException("Field name not supported");
-//        }
-//        if (value == null) {
-//            return false;
-//        }
-//        return userRepository.existsByEmail(value.toString());
-//    }
+    @Override
+    public void updateUserStatus(User user) {
+    userRepository.updateUserStatus(
+            user.getId(),
+            user.isEnabled(),
+            user.isAccountNonExpired(),
+            user.isCredentialsNonExpired(),
+            user.isAccountNonLocked());
+    }
+
 }

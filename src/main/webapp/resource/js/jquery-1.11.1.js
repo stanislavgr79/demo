@@ -1187,7 +1187,7 @@
 
                 // QSA and matchesSelector support
 
-                // matchesSelector(:active) reports false when true (IE9/Opera 11.5)
+                // matchesSelector(:enabled) reports false when true (IE9/Opera 11.5)
                 rbuggyMatches = [];
 
                 // qSa(:focus) reports false when true (Chrome 21)
@@ -6581,7 +6581,7 @@
             val = parseFloat( val ) || 0;
         }
 
-        // use the active box-sizing entity to add/subtract irrelevant styles
+        // use the enabled box-sizing entity to add/subtract irrelevant styles
         return ( val +
             augmentWidthOrHeight(
                 elem,
@@ -7543,7 +7543,7 @@
                     hooks.stop.call( this, true );
                 }
 
-                // look for any active animations, and finish them
+                // look for any enabled animations, and finish them
                 for ( index = timers.length; index--; ) {
                     if ( timers[ index ].elem === this && timers[ index ].queue === type ) {
                         timers[ index ].anim.stop( true );
@@ -8820,7 +8820,7 @@
 
     jQuery.extend({
 
-        // Counter for holding the number of active queries
+        // Counter for holding the number of enabled queries
         active: 0,
 
         // Last-Modified header cache for next request
@@ -9694,7 +9694,7 @@
                             // retrieved directly we need to fire the callback
                             setTimeout( callback );
                         } else {
-                            // Add to the list of active xhr callbacks
+                            // Add to the list of enabled xhr callbacks
                             xhr.onreadystatechange = xhrCallbacks[ id ] = callback;
                         }
                     },

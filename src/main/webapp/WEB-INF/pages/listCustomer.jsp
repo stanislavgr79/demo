@@ -35,6 +35,10 @@
                 <th>FirstName</th>
                 <th>LastName</th>
                 <th>Email</th>
+                <th>Enabled</th>
+                <th>AccountNonExpired</th>
+                <th>CredentialsNonExpired</th>
+                <th>AccountNonLocked</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -45,30 +49,15 @@
             <c:forEach items="${Customers}" var="customer" varStatus="tagStatus">
 
                 <tr>
+                    <td>${customer.id}</td>
                     <td>${customer.firstName}</td>
-
-<%--    <td><form:input path="customer.firstName" value="${customer.firstName}"--%>
-<%--                                                readonly="false"/></td>--%>
-                    <td><form:input path="" value="${customer.lastName}"
-                                    readonly="false"/></td>
-<%--                    <td>${customer.lastName}</td>--%>
+                    <td>${customer.lastName}</td>
                     <td>${customer.user.email}</td>
+                    <td>${customer.user.enabled}</td>
+                    <td>${customer.user.accountNonExpired}</td>
+                    <td>${customer.user.credentialsNonExpired}</td>
+                    <td>${customer.user.accountNonLocked}</td>
 
-<%--                    <td>${customer.id}</td>--%>
-<%--
-
-
-
-<%--                    <td><form:input path="customers[${tagStatus.index}].user.email" value="${customer.user.email}"--%>
-<%--                                    readonly="false"/></td>--%>
-                        <%--                <td>${person.firstName}</td>--%>
-                        <%--                <td>${person.lastName}</td>--%>
-                        <%--                <td>--%>
-                        <%--                    <label>--%>
-                        <%--                        <input type="text" name="email${varStatus.index}" value="${person.user.email}" />--%>
-                        <%--                    </label>--%>
-                        <%--                        &lt;%&ndash;  <form:input path="" value="${person.user.email}"/></td>&ndash;%&gt;--%>
-                        <%--                </td>--%>
                     <td>
                         <a href="<c:url value="customer/update/${customer.id}" />"
                            class="btn btn-success" style="margin-left: 15px">
