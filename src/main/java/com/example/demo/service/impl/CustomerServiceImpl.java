@@ -8,6 +8,8 @@ import com.example.demo.domain.entity.person.User;
 import com.example.demo.service.CustomerService;
 import com.example.demo.service.UserService;
 import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,8 @@ import java.util.Set;
 @Service
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -55,6 +59,8 @@ public class CustomerServiceImpl implements CustomerService {
         user.setRoles(roles);
         customer.setUser(user);
         customerRepository.save(customer);
+
+        logger.info("Customer save successfully, Customer="+ customer);
     }
 
     @Override

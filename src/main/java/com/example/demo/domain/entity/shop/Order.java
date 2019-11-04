@@ -2,10 +2,7 @@ package com.example.demo.domain.entity.shop;
 
 
 import com.example.demo.domain.entity.person.Customer;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,6 +15,7 @@ import java.util.List;
 @Table(name = "orders")
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString(exclude = {"orderDetail", "customer"})
 public class Order implements Serializable {
 
     @Id
@@ -34,22 +32,5 @@ public class Order implements Serializable {
     private double totalPrice;
 
     private int totalQuantity;
-
-//    public void addOrderDetail(OrderDetail orderDetail) {
-//        orderDetail.setOrder(this);
-//        this.orderDetail.add(orderDetail);
-//    }
-//
-//    public void removeOrderDetail(OrderDetail orderDetail) {
-//        this.orderDetail.remove(orderDetail);
-//        orderDetail.setOrder(null);
-//    }
-//
-//    public void clearOrderDetail() {
-//        for (OrderDetail od : orderDetail) {
-//            od.setOrder(null);
-//        }
-//        orderDetail.clear();
-//    }
 
 }

@@ -1,10 +1,7 @@
 package com.example.demo.domain.entity.shop;
 
 import com.example.demo.domain.entity.person.Customer;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Table(name = "customer_order")
+@ToString
 public class CustomerOrder implements Serializable {
 
     @Id

@@ -6,6 +6,8 @@ import com.example.demo.domain.entity.shop.Product;
 import com.example.demo.domain.model.Basket;
 import com.example.demo.service.BasketService;
 import com.example.demo.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class BasketServiceImpl implements BasketService {
+
+    private static final Logger logger = LoggerFactory.getLogger(BasketServiceImpl.class);
 
     @Autowired
     private ProductService productService;
@@ -30,8 +34,8 @@ public class BasketServiceImpl implements BasketService {
     public void addProductToBasket(Basket basket, Long productId) {
 
         Product product = productService.getProductById(productId);
-
         orderDetailDTO_dao.addProductToOrderDetailDTO(basket, product);
+        logger.info("Product find successfully, Product ="+ product);
     }
 
     @Override

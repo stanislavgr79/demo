@@ -1,10 +1,7 @@
 package com.example.demo.domain.entity.shop;
 
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
@@ -20,6 +17,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Table(name = "order_detail")
+@ToString(exclude = "order")
 public class OrderDetail implements Serializable {
 
     @Id
@@ -28,7 +26,6 @@ public class OrderDetail implements Serializable {
 
     private int quantity;
     private double price;
-
 
     @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -40,14 +37,4 @@ public class OrderDetail implements Serializable {
     @JoinColumn(name = "orders_id")
     private Order order;
 
-
-//    public double getSubTotalPrice() {
-//       double price = quantity * getProductPrice();
-//                this.setPrice(price);
-//        return price;
-//    }
-
-    public double getProductPrice() {
-        return product.getProductPrice();
-    }
 }

@@ -12,6 +12,7 @@ import java.util.Set;
 @Table(name = "roles")
 @NoArgsConstructor
 @EqualsAndHashCode(of = "name")
+@ToString(exclude = "users")
 public class Role {
 
     @Id

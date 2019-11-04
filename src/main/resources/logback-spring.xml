@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+    <springProfile name="default">
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+
+        <property name="DEV_HOME" value="./logs" />
+
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${DEV_HOME}/debug.log</file>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${DEV_HOME}/archived/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <!-- each archived file, size max 10MB -->
+                <maxFileSize>10MB</maxFileSize>
+                <!-- total size of all archive files, if total size > 100MB, it will delete old archived file -->
+                <totalSizeCap>100MB</totalSizeCap>
+                <!-- 30 days to keep -->
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="org.springframework" level="INFO" additivity="true" >
+<!--            <appender-ref ref="FILE-ROLLING" />-->
+        </logger>
+        <logger name="com.example.demo" level="DEBUG" additivity="true"/>
+        <logger name="org.hibernate.type.descriptor.sql" level="TRACE" additivity="true"/>
+
+        <root level="ERROR">
+            <appender-ref ref="FILE-ROLLING"/>
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+</configuration>
+
+<!--===========================================================-->
+<!--        Log Levels	TRACE	DEBUG	INFO	WARN	ERROR   -->
+<!--        TRACE	    ✓	    ✓	    ✓	    ✓	    ✓       -->
+<!--        DEBUG	    ✗	    ✓	    ✓	    ✓	    ✓       -->
+<!--        INFO	    ✗	    ✗	    ✓	    ✓	    ✓       -->
+<!--        WARN	    ✗	    ✗	    ✗	    ✓	    ✓       -->
+<!--        ERROR	    ✗	    ✗	    ✗	    ✗	    ✓       -->
+<!--        ALL	        ✓	    ✓	    ✓	    ✓	    ✓       -->
+<!--        OFF	        ✗	    ✗	    ✗	    ✗	    ✗       -->
+<!--===========================================================-->

@@ -1,9 +1,6 @@
 package com.example.demo.domain.entity.person;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
@@ -26,13 +23,12 @@ import java.util.Set;
 @Table(name = "users")
 @NoArgsConstructor
 @EqualsAndHashCode(of = "email")
-//@UniqueValidator(message="Person already exist",columns={"name","lastName"})
+@ToString(of = {"id", "email"})
 public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     private String email;
     private String password;
