@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -135,10 +136,34 @@ public class OrderController {
     }
 
 
+//    @RequestMapping("order/{orderId}")
+//    public @ResponseBody
+//    Order getOrder(@PathVariable(value = "orderId") Long orderId) {
+//        return orderService.getOrderById(orderId);
+//    }
+
     @RequestMapping("order/{orderId}")
-    public @ResponseBody
-    Order getOrder(@PathVariable(value = "orderId") Long orderId) {
-        return orderService.getOrderById(orderId);
+    public @ResponseBody ModelAndView viewOrder(@PathVariable(value = "orderId") Long id) {
+        Order order = orderService.getOrderById(id);
+        return new ModelAndView("viewOrder", "Order", order);
     }
 
+    @RequestMapping("admin/editOrder/{orderId}")
+    public @ResponseBody ModelAndView editOrder(@PathVariable(value = "orderId") Long id) {
+        Order order = orderService.getOrderById(id);
+        return new ModelAndView("editOrder", "Order", order);
+    }
+
+    @RequestMapping(value = "admin/editOrder/update", method = RequestMethod.POST)
+    public String editProduct(@ModelAttribute(value = "Order") Order order) {
+//        orderService.saveOrder(order);
+        return "redirect:/ordersList";
+    }
+
+    @RequestMapping(value = "admin/getAllOrders", method = RequestMethod.GET)
+    public String listOrders (Model uiModel){
+        List<Order> orders = orderService.getListOrder();
+        uiModel.addAttribute("orders", orders);
+        return "ordersList";
+    }
 }

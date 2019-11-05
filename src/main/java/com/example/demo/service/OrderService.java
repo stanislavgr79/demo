@@ -13,4 +13,5 @@ public interface OrderService {
 
     List<OrderDetail> getListOrderDetailByOrderId(Long orderId);
 
+    List<Order> getListOrder();
 }

@@ -14,34 +14,16 @@
 <%@ include file="footer.jsp"%>
 
 
-
-
-<div class="account-container">
-
-    <div class="page-title">.</div>
-    <ul>
-
-        <li>User Name: ${pageContext.request.userPrincipal.name}</li>
-
-        <li>Role:
-            <ul>
-                <c:forEach items="${userDetails.authorities}" var="auth">
-                    <li>${auth.authority}</li>
-                </c:forEach>
-            </ul>
-        </li>
-
-    </ul>
-
     <div class="container"
          style="width: 1145px; margin-bottom: 180px;">
         <h2>The List of Orders</h2>
 
-        <form:form method="get" modelAttribute="customerDetail">
+        <form:form method="get" modelAttribute="orders">
             <table class="table table-hover">
                 <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Name Customer</th>
                     <th>TotalQuantity</th>
                     <th>TotalPrice</th>
                     <th>OrderDetail</th>
@@ -49,14 +31,15 @@
                 </thead>
 
                 <tbody>
-                <c:forEach items="${customerDetail.ordersList}" var="order">
+                <c:forEach items="${orders}" var="order">
 
                     <tr>
                         <td>${order.id}</td>
+                        <td>${order.customer.user.email}</td>
                         <td>${order.totalQuantity}</td>
                         <td>${order.totalPrice}</td>
                         <td>
-                            <a href="<c:url value="order/${order.id}" />"
+                            <a href="<c:url value="editOrder/${order.id}" />"
                                class="btn btn-success" style="margin-left: 15px">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
@@ -69,8 +52,6 @@
 
             </table>
         </form:form>
-
-    </div>
 
 </div>
 

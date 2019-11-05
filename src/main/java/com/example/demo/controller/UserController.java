@@ -88,28 +88,16 @@ public class UserController {
        }
     }
 
-    @RequestMapping(value = "admin/customer/update/{id}")
-    public ModelAndView editCustomerForm(@PathVariable(value = "id") Long id) {
-        Customer customer = customerService.getCustomerById(id);
-        return new ModelAndView("editCustomer", "customer", customer);
-    }
-
-    @RequestMapping(value = "admin/customer/update", method = RequestMethod.POST)
-    public String editStatusCustomer(@ModelAttribute(value = "customer") Customer customer) {
-        userService.updateUserStatus(customer.getUser());
-        return "redirect:/admin/getAllCustomers";
-    }
-
     @RequestMapping(value = "admin/getCustomer/{customerId}")
     public ModelAndView getCustomerById(@PathVariable(value = "customerId") Long id) {
         Customer customer = customerService.getCustomerById(id);
         return new ModelAndView("customerPage", "customerEntity", customer);
     }
-
-    @RequestMapping(value = "admin/customer/delete/{customerId}")
-    public String deleteCustomer(@PathVariable(value = "customerId") Long id) {
-        customerService.deleteCustomer(id);
-        return "redirect:/admin/getAllCustomers";
-    }
+//
+//    @RequestMapping(value = "admin/customer/delete/{customerId}")
+//    public String deleteCustomer(@PathVariable(value = "customerId") Long id) {
+//        customerService.deleteCustomer(id);
+//        return "redirect:/admin/getAllCustomers";
+//    }
 
 }

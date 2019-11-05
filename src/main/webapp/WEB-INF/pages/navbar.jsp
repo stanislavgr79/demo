@@ -51,6 +51,13 @@
                     </li>
                 </security:authorize>
 
+                <security:authorize access="hasRole('ROLE_ADMIN')">
+                    <li>
+                        <a href=" <c:url value="/admin/getAllOrders" />">
+                            List All Orders</a>
+                    </li>
+                </security:authorize>
+
             </ul>
 
             <ul class="nav navbar-nav navbar-right">

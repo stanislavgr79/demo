@@ -8,7 +8,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Edit Product</title>
+    <title>Edit User Profile</title>
     <link rel="stylesheet"
           href="<c:url value="/resource/bootstrap/css/bootstrap.min.css"/>">
     <script src="<c:url value="/resource/js/jquery.js"/>"></script>
@@ -28,8 +28,8 @@
     <div class="col-lg-12 well">
         <div class="row">
 
-<%--            <c:url value="admin/customer/update" var="url"></c:url>--%>
-            <form:form method="post" modelAttribute="customer" action="/admin/customer/update">
+            <c:url value="/admin/customer/update" var="url"></c:url>
+            <form:form method="post" modelAttribute="Customer" action="${url}">
                 <div class="col-sm-12">
                     <div class="row">
                         <div class="col-sm-6 form-group">
@@ -38,46 +38,47 @@
                                         class="form-control" path="id" readonly="true"></form:input>
                         </div>
                     </div>
-                    <div class="row">
                         <div class="col-sm-6 form-group">
-                            <form:label path="firstName">First Name</form:label>
-                            <form:input type="text" placeholder="Customer First Name"
-                                        class="form-control" path="firstName" readonly="true"></form:input>
+                        <form:label path="firstName">First Name</form:label>
+                        <form:input type="text" placeholder="Customer First Name"
+                        class="form-control" path="firstName" readonly="true"></form:input>
                         </div>
                         <div class="col-sm-6 form-group">
-                            <form:label path="lastName">First Name</form:label>
-                            <form:input type="text" placeholder="Customer First Name"
-                                        class="form-control" path="lastName" readonly="true"></form:input>
+                        <form:label path="lastName">First Name</form:label>
+                        <form:input type="text" placeholder="Customer First Name"
+                        class="form-control" path="lastName" readonly="true"></form:input>
                         </div>
-                    </div>
-                    <form:hidden path="user.id" ></form:hidden>
+                        </div>
+                        <form:hidden path="user.id" ></form:hidden>
 
-                    <div class="form-group">
+                        <div class="form-group">
                         <form:label path="user.email">User detail</form:label>
                         <form:input type="text" placeholder="User email"
-                                       class="form-control" path="user.email" readonly="true"></form:input>
-                    </div>
+                        class="form-control" path="user.email" readonly="true"></form:input>
+                        </div>
 
-                    <div class="col-sm-4 form-group">
+                        <div class="col-sm-4 form-group">
                         <form:label path="user.enabled">Is enabled</form:label>
                         <form:checkbox placeholder="User is enabled"
-                                       class="form-control" path="user.enabled"></form:checkbox>
-                    </div>
-                    <div class="col-sm-4 form-group">
+                        class="form-control" path="user.enabled"></form:checkbox>
+                        </div>
+                        <div class="col-sm-4 form-group">
                         <form:label path="user.accountNonExpired">Is AccountNonExpired</form:label>
                         <form:checkbox placeholder="User is AccountNonExpired"
-                                       class="form-control" path="user.accountNonExpired"></form:checkbox>
-                    </div>
-                    <div class="col-sm-4 form-group">
+                        class="form-control" path="user.accountNonExpired"></form:checkbox>
+                        </div>
+                        <div class="col-sm-4 form-group">
                         <form:label path="user.credentialsNonExpired">Is CredentialsNonExpired</form:label>
                         <form:checkbox placeholder="User is CredentialsNonExpired"
-                                       class="form-control" path="user.credentialsNonExpired"></form:checkbox>
-                    </div>
-                    <div class="col-sm-4 form-group">
+                        class="form-control" path="user.credentialsNonExpired"></form:checkbox>
+                        </div>
+                        <div class="col-sm-4 form-group">
                         <form:label path="user.accountNonLocked">Is isAccountNonLocked</form:label>
                         <form:checkbox placeholder="User AccountNonLocked"
-                                       class="form-control" path="user.accountNonLocked"></form:checkbox>
-                    </div>
+                        class="form-control" path="user.accountNonLocked"></form:checkbox>
+                        </div>
+                        <div class="row">
+
                 </div>
 
                     <div class="row">

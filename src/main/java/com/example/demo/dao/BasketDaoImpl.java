@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public class BasketDaoImpl implements BasketDao {
 
     private static final Logger logger = LoggerFactory.getLogger(BasketDaoImpl.class);

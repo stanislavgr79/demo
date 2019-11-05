@@ -45,7 +45,6 @@
             </thead>
 
             <tbody>
-                <%--        <c:forEach items="${movie.actors}" var="actor" varStatus="counter">--%>
             <c:forEach items="${Customers}" var="customer" varStatus="tagStatus">
 
                 <tr>

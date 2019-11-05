@@ -71,8 +71,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(Long id) {
-        Long idUser = customerRepository.findById(id).get().getUser().getId();
-        userService.deleteUser(idUser);
+//        Long idUser = customerRepository.findById(id).get().getUser().getId();
+//        userService.deleteUser(idUser);
+        customerRepository.deleteById(id);
     }
 
     @Override

@@ -38,4 +38,10 @@ public class OrderServiceImpl implements OrderService {
         return orderDetailRepository.findOrderDetailsByOrder_Id(orderId);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<Order> getListOrder() {
+        return orderRepository.getOrdersByCustomerNotNull();
+    }
+
 }
