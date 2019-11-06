@@ -66,10 +66,13 @@ public class ProductController {
         return "redirect:/getAllProducts";
     }
 
-    @RequestMapping("getProductsList")
-    public @ResponseBody
-    List<Product> getProductsListInJson() {
-        return productService.getAllProducts();
-    }
+
+
+
+//    @RequestMapping("getProductsList")
+//    public @ResponseBody
+//    List<Product> getProductsListInJson() {
+//        return productService.getAllProducts();
+//    }
 
 }

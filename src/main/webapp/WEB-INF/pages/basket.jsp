@@ -34,14 +34,15 @@
 </div>
 
 <div>
-    <a href="<c:url value="/order/removeAllDetails" />"
+    <a href="<c:url value="/basket/removeAllDetails" />"
        class="btn btn-success" style="margin-left: 15px"  title="deleteAllRows" >
         <input class="button-update-sc" type="submit" value="Clear basket" style="color: #0f0f0f"/>
     </a>
 </div>
 
-
-<form:form action="/order/getCurrentOrder" method="post" modelAttribute="Basket"  >
+<c:url value="/basket/getCurrentBasket" var="url"></c:url>
+<form:form action="${url}" method="post" modelAttribute="Basket"  >
+<%--<form:form action="/basket/getCurrentBasket" method="post" modelAttribute="Basket"  >--%>
 
     <table class="table table" width="99%" style="width: available">
 
@@ -66,7 +67,7 @@
                 <td><form:input path="orderDetail[${tagStatus.index}].subTotalPrice" value="${od.subTotalPrice}" readonly="true"/></td>
 
                 <td>
-                      <a href="<c:url value="/order/removeOrderDetail/${od.product.id}" />"
+                      <a href="<c:url value="/basket/removeOrderDetail/${od.product.id}" />"
                          class="btn btn-danger" style="margin-left: 15px">
                          <span class="glyphicon glyphicon-remove"></span>
                        </a>

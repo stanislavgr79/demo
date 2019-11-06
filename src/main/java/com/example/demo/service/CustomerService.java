@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.entity.person.Customer;
+import com.example.demo.domain.entity.person.User;
+import com.example.demo.security.RegistrationForm;
 
 import java.util.List;
 
@@ -10,12 +12,16 @@ public interface CustomerService {
 
     Customer getCustomerById(Long id);
 
-    void createCustomer(Customer customer);
+    void createCustomer(RegistrationForm registrationForm);
 
     Customer getCustomerByEmail(String email);
 
     void deleteCustomer(Long id);
 
     void updateCustomer(Customer customer);
+
+    Customer buildCustomerFromRegistrationForm(RegistrationForm registrationForm);
+
+    User updateUserSecurity(User user);
 
 }

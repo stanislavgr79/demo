@@ -14,9 +14,9 @@ public interface UserService {
 
     User findUserByEmail(String email);
 
-    void deleteUser(Long userId);
-
     void createUser(User user);
+
+    void deleteUser(Long userId);
 
     List<String> rolesByUserId(Long id);
 

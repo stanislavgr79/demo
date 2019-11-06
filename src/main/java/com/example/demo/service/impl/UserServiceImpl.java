@@ -4,6 +4,8 @@ package com.example.demo.service.impl;
 import com.example.demo.dao.repository.UserRepository;
 import com.example.demo.domain.entity.person.Role;
 import com.example.demo.domain.entity.person.User;
+
+import com.example.demo.service.CustomerService;
 import com.example.demo.service.UserService;
 import com.google.common.collect.Lists;
 
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 import java.util.stream.Collectors;
 
 @Service
@@ -21,12 +24,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    // for admin
-//    @Autowired
-//    private RoleRepository roleRepository;
-//
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private CustomerService customerService;
 
     @Override
     @Transactional(readOnly = true)
@@ -53,7 +52,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(User user) {
-        userRepository.save(user);
+       User secureUser = customerService.updateUserSecurity(user);
+        userRepository.save(secureUser);
     }
 
     @Override

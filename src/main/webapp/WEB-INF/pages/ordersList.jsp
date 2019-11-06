@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,9 +24,13 @@
                 <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Order createDate</th>
+                    <th>Order modifyDate</th>
                     <th>Name Customer</th>
                     <th>TotalQuantity</th>
                     <th>TotalPrice</th>
+                    <th>Status Order</th>
+                    <th>Manager inUse</th>
                     <th>OrderDetail</th>
                 </tr>
                 </thead>
@@ -35,9 +40,17 @@
 
                     <tr>
                         <td>${order.id}</td>
+                        <td>
+                            <fmt:formatDate value="${order.orderCreateDate}" pattern="dd-MM-yyyy HH:mm"/>
+                        </td>
+                        <td>
+                            <fmt:formatDate value="${order.orderModifyDate}" pattern="dd-MM-yyyy HH:mm"/>
+                        </td>
                         <td>${order.customer.user.email}</td>
                         <td>${order.totalQuantity}</td>
                         <td>${order.totalPrice}</td>
+                        <td>${order.statusOrder.STATUS}</td>
+                        <td>${order.manager}</td>
                         <td>
                             <a href="<c:url value="editOrder/${order.id}" />"
                                class="btn btn-success" style="margin-left: 15px">

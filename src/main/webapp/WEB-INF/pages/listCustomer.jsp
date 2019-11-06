@@ -26,8 +26,7 @@
     <h2>Customer Management</h2>
     <p>The List of Customers</p>
 
-    <%--<c:url value="/admin/getAllCustomers" var="url"></c:url>--%>
-    <form:form method="post" action="saveCustomers" modelAttribute="Customers">
+    <form:form method="get" modelAttribute="Customers">
         <table class="table table-hover">
             <thead>
             <tr>
@@ -40,7 +39,11 @@
                 <th>CredentialsNonExpired</th>
                 <th>AccountNonLocked</th>
                 <th>Edit</th>
+
+                <security:authorize access="hasRole({'ROLE_ADMIN'})">
                 <th>Delete</th>
+                </security:authorize>
+
             </tr>
             </thead>
 
@@ -63,13 +66,14 @@
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
                     </td>
+                    <security:authorize access="hasRole({'ROLE_ADMIN'})">
                     <td>
                         <a href="<c:url value="customer/delete/${customer.id}" />"
                            class="btn btn-danger" style="margin-left: 15px">
                             <span class="glyphicon glyphicon-remove-sign"></span>
                         </a>
                     </td>
-
+                    </security:authorize>
                 </tr>
 
             </c:forEach>
@@ -77,7 +81,6 @@
             </tbody>
 
         </table>
-        <input type="submit" value="Save"/>
     </form:form>
 
 </div>

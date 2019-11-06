@@ -14,6 +14,8 @@ import java.util.List;
 @ToString
 public class Basket {
 
+    private Long idCustomer;
+
     private double totalPrice;
     private int totalQuantity;
 

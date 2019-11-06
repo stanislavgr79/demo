@@ -1,7 +1,6 @@
-package com.example.demo.domain.model;
+package com.example.demo.security;
 
 import lombok.*;
-
 
 @Getter
 @Setter

@@ -33,13 +33,6 @@
     Total price: ${Order.totalPrice}
 </div>
 
-<%--<div>--%>
-    <%--<a href="<c:url value="/order/removeAllDetails" />"--%>
-       <%--class="btn btn-success" style="margin-left: 15px"  title="deleteAllRows" >--%>
-        <%--<input class="button-update-sc" type="submit" value="Clear basket" style="color: #0f0f0f"/>--%>
-    <%--</a>--%>
-<%--</div>--%>
-
 
 <form:form  method="get" modelAttribute="Order"  >
 
@@ -51,7 +44,6 @@
         <th>Product Price</th>
         <th>Products Quantity</th>
         <th>Products TotalPrice</th>
-        <%--<th>Delete</th>--%>
     </tr>
     </thead>
 
@@ -64,28 +56,12 @@
             <td><form:input path="orderDetail[${tagStatus.index}].product.productPrice" value="${od.product.productPrice}" readonly="true"/></td>
             <td><form:input path="orderDetail[${tagStatus.index}].quantity" value="${od.quantity}" readonly="true"/></td>
             <td><form:input path="orderDetail[${tagStatus.index}].price" value="${od.price}" readonly="true"/></td>
-
-            <%--<td>--%>
-                <%--<a href="<c:url value="/order/removeOrderDetail/${od.product.id}" />"--%>
-                   <%--class="btn btn-danger" style="margin-left: 15px">--%>
-                    <%--<span class="glyphicon glyphicon-remove"></span>--%>
-                <%--</a>--%>
-            <%--</td>--%>
         </tr>
     </c:forEach>
 
     </tbody>
 
 </table>
-
-
-<%--<a class="btn btn-success" style="margin-left: 15px">--%>
-    <%--<input class="button-update-sc" type="submit" name="action1" value="Update quantity." style="color: #0f0f0f"/>--%>
-    <%--<a/>--%>
-
-    <%--<a class="btn btn-success" style="margin-left: 15px">--%>
-        <%--<input class="button-update-sc" type="submit" name="action2" value="Success buy." style="color: #0f0f0f"/>--%>
-    <%--</a>--%>
 
     </form:form>
 

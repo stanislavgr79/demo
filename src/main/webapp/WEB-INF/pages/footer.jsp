@@ -33,15 +33,30 @@
             </a>
         </security:authorize>
 
-        <security:authorize access="hasRole('ROLE_ADMIN')">
-            <a href="<spring:url value="/order/getOrderById" />">
+        <c:if test="${!empty pageContext.request.userPrincipal.name}">
+            <security:authorize access="hasRole({'ROLE_USER'})">
+            <a href="<spring:url value="/basket/getCurrentBasket" />">
                 <span class="glyphicon glyphicon-shopping-cart"></span>
             </a>
-        </security:authorize>
+            </security:authorize>
 
-        <a href="<c:url value="/login"/>">
-            <span class="glyphicon glyphicon-log-in"></span>
+        <a href="<c:url value="/logout"/>">
+            <span class="glyphicon glyphicon-log-out"></span>
         </a>
+        </c:if>
+
+
+        <c:if test="${empty pageContext.request.userPrincipal.name}">
+
+                <a href="<spring:url value="/user/registration" />">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                </a>
+
+            <a href="<c:url value="/login"/>">
+                <span class="glyphicon glyphicon-log-in"></span>
+            </a>
+        </c:if>
+
 
     </div>
 

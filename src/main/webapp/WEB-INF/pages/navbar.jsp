@@ -34,24 +34,26 @@
         <div class="collapse navbar-collapse" >
             <ul class="nav navbar-nav">
                 <li><a href=" <c:url value="/index" />">Home</a></li>
+
+
                 <li><a href=" <c:url value="/getAllProducts" />">Product List</a></li>
 
 
-                <security:authorize access="hasRole('ROLE_ADMIN')">
+                <security:authorize access="hasAnyRole({'ROLE_ADMIN','ROLE_MANAGER'})">
                     <li>
                         <a href=" <c:url value="/admin/product/addProduct" />">
                             Add Product</a>
                     </li>
                 </security:authorize>
 
-                <security:authorize access="hasRole('ROLE_ADMIN')">
+                <security:authorize access="hasAnyRole({'ROLE_ADMIN','ROLE_MANAGER'})">
                     <li>
                         <a href=" <c:url value="/admin/getAllCustomers" />">
                             List Customers</a>
                     </li>
                 </security:authorize>
 
-                <security:authorize access="hasRole('ROLE_ADMIN')">
+                <security:authorize access="hasAnyRole({'ROLE_ADMIN','ROLE_MANAGER'})">
                     <li>
                         <a href=" <c:url value="/admin/getAllOrders" />">
                             List All Orders</a>
@@ -63,15 +65,17 @@
             <ul class="nav navbar-nav navbar-right">
 
                 <c:if test="${!empty pageContext.request.userPrincipal.name}">
+                    <security:authorize access="hasAnyRole({'ROLE_ADMIN','ROLE_USER'})">
                     <li>
                         <a href="<c:url value="/accountInfo" />">
                         <span class="glyphicon glyphicon-shopping-user"> </span>
                             Welcome..${pageContext.request.userPrincipal.name}
                     </a>
                     </li>
+                    </security:authorize>
 
-                    <security:authorize access="hasRole('ROLE_ADMIN')">
-                        <li><a href="<c:url value="/order/getCurrentOrder" />"><span
+                    <security:authorize access="hasAnyRole({'ROLE_USER'})">
+                        <li><a href="<c:url value="basket/getCurrentBasket" />"><span
                                 class="glyphicon glyphicon-shopping-cart"></span> Basket</a></li>
                     </security:authorize>
                     <li><a href="<c:url value="/logout" />"><span

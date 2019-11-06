@@ -3,7 +3,7 @@ package com.example.demo.dao;
 import com.example.demo.domain.model.Basket;
 import org.springframework.stereotype.Repository;
 
-@Repository
+
 public interface BasketDao {
 
     void clearOrderDetailList(Basket basket);

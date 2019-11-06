@@ -10,5 +10,7 @@ public interface BasketService {
 
     void removeOrderDetailByProductId(Basket basket, Long orderDetailByProductId);
 
-    void updateInfoPriceAndQuantity(Basket basket, Basket basketSesion);
+    void updateInfoPriceAndQuantityInBasketSession(Basket basket, Basket basketSession);
+
+    void updateInfoPriceAndQuantityInBasket(Basket basket);
 }

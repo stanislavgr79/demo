@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,24 +38,30 @@
          style="width: 1145px; margin-bottom: 180px;">
         <h2>The List of Orders</h2>
 
-        <form:form method="get" modelAttribute="customerDetail">
+        <form:form method="get" modelAttribute="orders">
             <table class="table table-hover">
                 <thead>
                 <tr>
                     <th>Id</th>
+                    <th>Create Date</th>
                     <th>TotalQuantity</th>
                     <th>TotalPrice</th>
+                    <th>Status order</th>
                     <th>OrderDetail</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                <c:forEach items="${customerDetail.ordersList}" var="order">
+                <c:forEach items="${orders}" var="order">
 
                     <tr>
                         <td>${order.id}</td>
+                        <td>
+                            <fmt:formatDate value="${order.orderCreateDate}" pattern="dd-MM-yyyy HH:mm"/>
+                        </td>
                         <td>${order.totalQuantity}</td>
                         <td>${order.totalPrice}</td>
+                        <td>${order.statusOrder.STATUS}</td>
                         <td>
                             <a href="<c:url value="order/${order.id}" />"
                                class="btn btn-success" style="margin-left: 15px">

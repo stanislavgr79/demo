@@ -32,9 +32,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Long productId) {
-        // check for optional
-//        Optional<Product> product = productRepository.findById(productId);
-//        product.ifPresent(productRepository::delete);
         productRepository.deleteById(productId);
     }
 

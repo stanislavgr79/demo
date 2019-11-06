@@ -58,8 +58,6 @@
                                 <div class="error" style="color: #ff0000">${error}</div>
                             </c:if>
                         </div>
-<%--                        <form:hidden path="${}" id="cust"></form:hidden>--%>
-<%--                        <div id="button">--%>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-sm btn-success"
                                     style="margin-right: 100px; margin-left: 60px"

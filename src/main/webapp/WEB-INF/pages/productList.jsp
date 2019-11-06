@@ -30,15 +30,17 @@
             <th>Product Name</th>
             <th>Products Price</th>
             <th>Description</th>
-            <th>View
-                <security:authorize access="hasAnyRole('ROLE_ADMIN')">
-                    Buy
-                </security:authorize>
-                <!-- 	for admin -->
-                <security:authorize access="hasAnyRole('ROLE_ADMIN')">
-                    Edit       Delete
-                </security:authorize>
-            </th>
+            <th>View</th>
+
+        <security:authorize access="hasRole({'ROLE_USER'})">
+            <th>Buy</th>
+        </security:authorize>
+            <!-- 	for admin -->
+        <security:authorize access="hasAnyRole({'ROLE_ADMIN','ROLE_MANAGER'})">
+            <th>Edit</th>
+            <th>Delete</th>
+        </security:authorize>
+
         </tr>
         </thead>
 
@@ -56,30 +58,32 @@
                        class="btn btn-info" role="button">
                         <span class="glyphicon glyphicon-info-sign"></span>
                     </a>
+                </td>
 
-                    <!-- 	for user -->
-                    <security:authorize access="hasAnyRole('ROLE_ADMIN')">
-                        <a href="<c:url value="/order/add/${item.id}" />"
+                <security:authorize access="hasRole({'ROLE_USER'})">
+                <td>
+                        <a href="<c:url value="/basket/add/${item.id}" />"
                            class="btn btn-primary" style="margin-left: 5px">
                             <span class="glyphicon glyphicon-shopping-cart"></span>
                         </a>
-                    </security:authorize>
-
-                    <!-- 	for admin -->
-                    <security:authorize access="hasAnyRole('ROLE_ADMIN')">
-
-                        <a href="<c:url value="admin/product/update/${item.id}" />"
-                           class="btn btn-success" style="margin-left: 15px">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </a>
-
-                        <a href="<c:url value="admin/product/delete/${item.id}" />"
-                           class="btn btn-danger" style="margin-left: 15px">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a>
-
-                    </security:authorize>
                 </td>
+                </security:authorize>
+
+
+                    <security:authorize access="hasAnyRole({'ROLE_ADMIN','ROLE_MANAGER'})">
+                <td>
+                    <a href="<c:url value="admin/product/update/${item.id}" />"
+                       class="btn btn-success" style="margin-left: 15px">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>
+                </td>
+                        <td>
+                            <a href="<c:url value="admin/product/delete/${item.id}" />"
+                               class="btn btn-danger" style="margin-left: 15px">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </td>
+                    </security:authorize>
 
             </tr>
 

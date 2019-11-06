@@ -9,12 +9,10 @@ import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-public class DemoApplication
-		implements WebMvcConfigurer
+public class DemoApplication implements WebMvcConfigurer
 {
 
 	@PostConstruct
-		// to sql server
 	void started() {
 		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
 	}
@@ -22,6 +20,5 @@ public class DemoApplication
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
-
 
 }
