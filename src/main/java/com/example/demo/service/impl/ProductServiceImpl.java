@@ -3,7 +3,6 @@ package com.example.demo.service.impl;
 import com.example.demo.dao.repository.ProductRepository;
 import com.example.demo.domain.entity.shop.Product;
 import com.example.demo.service.ProductService;
-import com.google.common.collect.Lists;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public List<Product> getAllProducts() {
-        return Lists.newArrayList(productRepository.findAll());
+        return productRepository.findAllByEnabledTrueOrderByProductName();
+    }
+
+    @Override
+    public List<Product> getAllDisabledProducts() {
+        return productRepository.findAllByEnabledFalseOrderByProductName();
     }
 
     @Override
@@ -32,12 +36,22 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Long productId) {
-        productRepository.deleteById(productId);
+        Product product = productRepository.getById(productId);
+        product.setEnabled(false);
+        productRepository.save(product);
     }
 
     @Override
     public void addProduct(Product product) {
-        productRepository.save(product);
+        Product current = productRepository.findByProductName(product.getProductName());
+        if (current != null){
+            current.setDescription(product.getDescription());
+            current.setProductPrice(product.getProductPrice());
+            current.setEnabled(true);
+            productRepository.save(current);
+        } else {
+            productRepository.save(product);
+        }
     }
 
     @Override
@@ -45,10 +59,4 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
     }
 
-    // example sql native query
-    @Override
-    public void updateProduct(Product product) {
-        productRepository.updateProduct(product.getId(), product.getProductName(),
-                product.getProductPrice(), product.getDescription());
-    }
 }

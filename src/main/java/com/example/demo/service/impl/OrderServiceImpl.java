@@ -49,19 +49,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<OrderDetail> getListOrderDetailByOrderId(Long orderId) {
-        return orderDetailService.findOrderDetailsByOrder_Id(orderId);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Order> getAllOrders() {
-        return orderRepository.getOrdersByCustomerNotNull();
-//        List<String> sortedList = list.stream().sorted().collect(Collectors.toList());
-    }
-
-    @Override
     public void createOrderFromBasket(Customer customer, Basket basket) {
 
         Order order = new Order();

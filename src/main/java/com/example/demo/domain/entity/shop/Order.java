@@ -2,7 +2,6 @@ package com.example.demo.domain.entity.shop;
 
 
 import com.example.demo.domain.entity.person.Customer;
-import com.example.demo.domain.entity.person.User;
 import lombok.*;
 
 import javax.persistence.*;

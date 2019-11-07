@@ -27,15 +27,6 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public CustomerOrder getDistinctByOrderId(Long id){
-        CustomerOrder customerOrder = customerOrderRepository.getDistinctByOrderId(id);
-        logger.info("CustomerOrder findByOrderId =" + id + " successfully, CustomerOrder= "+ customerOrder);
-        return customerOrder;
-
-    }
-
-    @Override
     public void createCustomerOrderByCustomerAndOrder(Customer customer, Order order){
         CustomerOrder customerOrder = new CustomerOrder();
         customerOrder.setOrder(order);

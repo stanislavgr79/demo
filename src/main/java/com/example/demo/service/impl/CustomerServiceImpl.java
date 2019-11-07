@@ -83,9 +83,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public User updateUserSecurity(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Set<Role> roles = user.getRoles();
-        roles.add(roleRepository.findById(1L).get());
-        user.setRoles(roles);
         return user;
     }
 

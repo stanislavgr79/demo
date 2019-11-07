@@ -9,6 +9,8 @@ public interface ProductService {
 
     List<Product> getAllProducts();
 
+    List<Product> getAllDisabledProducts();
+
     Product getProductById(Long productId);
 
     void deleteProduct(Long productId);
@@ -17,6 +19,4 @@ public interface ProductService {
 
     void editProduct(Product product);
 
-    //sql native query example
-    void updateProduct(Product product);
 }

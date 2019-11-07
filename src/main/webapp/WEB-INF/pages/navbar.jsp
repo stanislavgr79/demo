@@ -38,6 +38,12 @@
 
                 <li><a href=" <c:url value="/getAllProducts" />">Product List</a></li>
 
+                <security:authorize access="hasAnyRole({'ROLE_ADMIN','ROLE_MANAGER'})">
+                    <li>
+                        <a href=" <c:url value="/admin/product/getProductsDisabled" />">
+                            Products disabled</a>
+                    </li>
+                </security:authorize>
 
                 <security:authorize access="hasAnyRole({'ROLE_ADMIN','ROLE_MANAGER'})">
                     <li>

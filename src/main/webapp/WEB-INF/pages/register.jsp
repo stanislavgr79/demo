@@ -61,7 +61,7 @@
                         </div>
                     </div>
 
-                    <hr>
+<%--                    <hr>--%>
 
                     <div class="form-group">
 <%--                        <form:label path="address">Address</form:label>--%>

@@ -53,6 +53,11 @@
                         <form:input type="text" placeholder="Enter Product Price.."
                                     class="form-control" path="productPrice"></form:input>
                     </div>
+                    <div class="col-sm-4 form-group">
+                        <form:label path="enabled">Is Product Enabled</form:label>
+                        <form:checkbox placeholder="Product status"
+                                       class="form-control" path="enabled"></form:checkbox>
+                    </div>
                     <div class="form-actions">
                         <button type="submit" class="btn btn-lg btn-info">Update</button>
                     </div>

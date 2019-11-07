@@ -9,5 +9,4 @@ public interface OrderDetailService {
 
     void saveOrderDetail(OrderDetail orderDetail);
 
-    List<OrderDetail> findOrderDetailsByOrder_Id(Long orderId);
 }

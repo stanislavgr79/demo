@@ -9,8 +9,7 @@ import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-public class DemoApplication implements WebMvcConfigurer
-{
+public class DemoApplication implements WebMvcConfigurer {
 
 	@PostConstruct
 	void started() {

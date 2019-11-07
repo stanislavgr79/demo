@@ -28,7 +28,6 @@
     <div class="col-lg-12 well">
         <div class="row">
 
-            <%--<c:url value="/admin/product/update/" var="url"></c:url>--%>
             <form:form method="get" modelAttribute="productEntity" >
                 <div class="col-sm-12">
                     <div class="row">
@@ -53,9 +52,6 @@
                         <form:textarea type="text" placeholder="Product Price.."
                                     class="form-control" path="productPrice" readonly="true"></form:textarea>
                     </div>
-                    <%--<div class="form-actions">--%>
-                        <%--<button type="submit" class="btn btn-lg btn-info">Update</button>--%>
-                    <%--</div>--%>
                 </div>
             </form:form>
         </div>

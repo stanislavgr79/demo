@@ -31,10 +31,8 @@ public class OrderController {
         Order order = orderService.getOrderById(id);
         ModelAndView mav = new ModelAndView();
         mav.addObject("Order", order);
-//        mav.addObject("Status", new Status().getValues());
         mav.setViewName("editOrder");
         return mav;
-//        return new ModelAndView("editOrder", "Order", order);
     }
 
     @RequestMapping(value = "admin/editOrder/update", method = RequestMethod.POST)
@@ -43,7 +41,6 @@ public class OrderController {
                 .getContext().getAuthentication().getPrincipal();
         String managerName = userDetails.getUsername();
         orderService.updateOrder(managerName, order);
-//        orderService.saveOrder(order);
         return "redirect:/admin/getAllOrders";
     }
 

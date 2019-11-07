@@ -1,52 +1,67 @@
 package com.example.demo.controller;
 
-import com.example.demo.security.RegistrationForm;
-import com.example.demo.security.RegistrationValidator;
-import com.example.demo.service.CustomerService;
+import com.example.demo.domain.entity.person.Role;
+import com.example.demo.domain.entity.person.User;
+import com.example.demo.domain.model.UserDTO;
+import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class UserController {
 
-
     @Autowired
-    private CustomerService customerService;
+    private UserService userService;
 
-    @Autowired
-    private RegistrationValidator registrationValidator;
+    @RequestMapping(value = "admin/getUsersNotCustomer", method = RequestMethod.GET)
+    public String viewUsersManager (Model uiModel){
+        List<User> users = userService.getUsersNotCustomer();
+        List<Role> roles = userService.getAllRole();
+        uiModel.addAttribute("users", users);
+        uiModel.addAttribute("Roles", roles);
 
-    @InitBinder
-    private void initBinder(WebDataBinder binder) {
-        binder.setValidator(registrationValidator);
+        return "usersList";
     }
 
-    @RequestMapping(value = "user/registration", method = RequestMethod.GET)
-    public ModelAndView  getRegistrationForm() {
-        RegistrationForm registrationForm = new RegistrationForm();
-
-        return new ModelAndView("register", "registerForm", registrationForm);
+    @RequestMapping(value = "admin/createUser", method = RequestMethod.GET)
+    public ModelAndView  getUserForm() {
+       List<Role> roles = userService.getAllRole();
+       UserDTO userDTO = new UserDTO();
+       ModelAndView mav = new ModelAndView();
+       mav.addObject("Roles", roles);
+       mav.addObject("UserDto", userDTO);
+       mav.setViewName("regUser");
+        return mav;
     }
 
-    @RequestMapping(value = "user/registration", method = RequestMethod.POST)
-    public String registerCustomer(@ModelAttribute(value = "registerForm")
-            @Valid @RequestBody RegistrationForm registrationForm,
-            BindingResult result, Model model) {
-        if (result.hasErrors()){
-            model.addAttribute("registerForm", registrationForm);
-            return "register";
-        }
-        customerService.createCustomer(registrationForm);
-        model.addAttribute("registrationSuccess", "Registered Successfully. You can login.");
-        return "login";
+    @RequestMapping(value = "admin/createUser", method = RequestMethod.POST)
+    public String  regUserForm(@ModelAttribute(value = "UserDto") UserDTO userDTO) {
+        userService.createUserFromUserDTO(userDTO);
+        return "redirect:/admin/getUsersNotCustomer";
+    }
+
+    @RequestMapping(value = "admin/deleteUser/{userId}")
+    public String deleteProduct(@PathVariable(value = "userId") Long userId) {
+        userService.deleteUser(userId);
+        return "redirect:/admin/getUsersNotCustomer";
+    }
+
+    @RequestMapping(value = "admin/editUser/{userId}")
+    public ModelAndView getEditUserForm(@PathVariable(value = "userId") Long id) {
+        User user = userService.getUserById(id);
+        return new ModelAndView("editUser", "user", user);
+    }
+
+    @RequestMapping(value = "admin/editUser", method = RequestMethod.POST)
+    public String editUser(@ModelAttribute(value = "user") User user) {
+        userService.updateUserStatus(user);
+        return "redirect:/admin/getUsersNotCustomer";
     }
 
 }

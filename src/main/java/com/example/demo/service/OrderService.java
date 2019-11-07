@@ -13,10 +13,6 @@ public interface OrderService {
 
     void saveOrder(Order order);
 
-    List<OrderDetail> getListOrderDetailByOrderId(Long orderId);
-
-    List<Order> getAllOrders();
-
     void createOrderFromBasket(Customer customer, Basket basket);
 
     List<Order> findAllByCustomerNotNullOrderByOrderCreateDateDesc();

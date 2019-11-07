@@ -8,7 +8,5 @@ public interface CustomerOrderService {
 
     void saveCustomerOrder(CustomerOrder customerOrder);
 
-    CustomerOrder getDistinctByOrderId(Long id);
-
     void createCustomerOrderByCustomerAndOrder(Customer customer, Order order);
 }

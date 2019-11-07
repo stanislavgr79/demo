@@ -1,11 +1,12 @@
-package com.example.demo.dao;
+package com.example.demo.dao.impl;
 
+import com.example.demo.dao.BasketDao;
+import com.example.demo.dao.OrderDetailDtoDao;
 import com.example.demo.domain.entity.shop.Product;
 import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

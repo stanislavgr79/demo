@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 public class OrderDetailServiceImpl implements OrderDetailService {
@@ -19,11 +17,6 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     @Override
     public void saveOrderDetail(OrderDetail orderDetail) {
         orderDetailRepository.save(orderDetail);
-    }
-
-    @Override
-    public List<OrderDetail> findOrderDetailsByOrder_Id(Long orderId) {
-        return orderDetailRepository.findOrderDetailsByOrder_Id(orderId);
     }
 
 }

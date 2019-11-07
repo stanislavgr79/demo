@@ -1,5 +1,5 @@
 <%@ page import="com.example.demo.domain.entity.shop.Order" %>
-<%--<jsp:useBean id="stateBean" class="com.example.demo.domain.entity.shop.Status" />--%>
+<%--<jsp:useBean id="stateBean" class="com.example.demo.domain.model.Status" />--%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>

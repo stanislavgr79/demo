@@ -42,7 +42,6 @@
 
 <c:url value="/basket/getCurrentBasket" var="url"></c:url>
 <form:form action="${url}" method="post" modelAttribute="Basket"  >
-<%--<form:form action="/basket/getCurrentBasket" method="post" modelAttribute="Basket"  >--%>
 
     <table class="table table" width="99%" style="width: available">
 

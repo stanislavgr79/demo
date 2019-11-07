@@ -26,6 +26,13 @@ public class ProductController {
         return "productList";
     }
 
+    @RequestMapping(value = "admin/product/getProductsDisabled", method = RequestMethod.GET)
+    public String listDisabledProducts (Model uiModel){
+        List<Product> products = productService.getAllDisabledProducts();
+        uiModel.addAttribute("products", products);
+        return "productDisableList";
+    }
+
     @RequestMapping(value = "getProductById/{productId}")
     public ModelAndView getProductById(@PathVariable(value = "productId") Long productId) {
         Product product = productService.getProductById(productId);
@@ -65,14 +72,5 @@ public class ProductController {
         productService.editProduct(product);
         return "redirect:/getAllProducts";
     }
-
-
-
-
-//    @RequestMapping("getProductsList")
-//    public @ResponseBody
-//    List<Product> getProductsListInJson() {
-//        return productService.getAllProducts();
-//    }
 
 }

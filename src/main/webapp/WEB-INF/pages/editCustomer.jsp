@@ -73,7 +73,7 @@
                         class="form-control" path="user.credentialsNonExpired"></form:checkbox>
                         </div>
                         <div class="col-sm-4 form-group">
-                        <form:label path="user.accountNonLocked">Is isAccountNonLocked</form:label>
+                        <form:label path="user.accountNonLocked">Is AccountNonLocked</form:label>
                         <form:checkbox placeholder="User AccountNonLocked"
                         class="form-control" path="user.accountNonLocked"></form:checkbox>
                         </div>

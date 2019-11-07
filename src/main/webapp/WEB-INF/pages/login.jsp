@@ -45,8 +45,8 @@
                         method="POST"  action="${pageContext.request.contextPath}/j_spring_security_check">
                     <fieldset>
                         <div class="form-group">
-                            <input class="form-control" placeholder="E-mail"
-                                   name="j_username" type="email">
+                            <input class="form-control" placeholder="Text"
+                                   name="j_username" type="text">
                         </div>
                         <div class="form-group">
                             <input class="form-control" placeholder="Password"

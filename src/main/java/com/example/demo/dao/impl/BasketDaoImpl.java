@@ -1,12 +1,12 @@
-package com.example.demo.dao;
+package com.example.demo.dao.impl;
 
 
+import com.example.demo.dao.BasketDao;
 import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

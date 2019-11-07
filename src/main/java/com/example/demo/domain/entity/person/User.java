@@ -5,18 +5,12 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.validator.constraints.Length;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-//!!
 @Getter
 @Setter
 @Entity
@@ -49,15 +43,5 @@ public class User implements Serializable {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
-//    public void addRole(Role role){
-//        roles.add(role);
-//        role.getUsers().add(this);
-//    }
-//
-//    public void removeRole(Role role){
-//        roles.remove(role);
-//        role.getUsers().remove(this);
-//    }
 
 }
