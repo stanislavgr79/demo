@@ -5,6 +5,8 @@ import com.example.demo.dao.OrderDetailDtoDao;
 import com.example.demo.domain.entity.shop.Product;
 import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +14,8 @@ import java.util.List;
 
 @Repository
 public class OrderDetailDtoDaoImpl implements OrderDetailDtoDao {
+
+    private static final Logger logger = LoggerFactory.getLogger(OrderDetailDtoDaoImpl.class);
 
     @Autowired
     private BasketDao basketDao;
@@ -45,5 +49,7 @@ public class OrderDetailDtoDaoImpl implements OrderDetailDtoDao {
 
         basket.setTotalQuantity(basketDao.getBasketTotalQuantity(basket));
         basket.setTotalPrice(basketDao.getBasketTotalPrice(basket));
+        logger.info("Product add to Basket, and update TotalQuantity, TotalPrice in Basket; " +
+                "product= " + product + "basket= " + basket);
     }
 }

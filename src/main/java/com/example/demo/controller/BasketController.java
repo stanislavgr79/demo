@@ -5,6 +5,8 @@ import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
 import com.example.demo.service.*;
 import com.example.demo.service.CustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -22,6 +24,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class BasketController {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
     private OrderService orderService;
@@ -48,6 +52,8 @@ public class BasketController {
         }
 
         model.addAttribute("Basket", basket);
+        logger.info("Basket send to Model, basket= " + basket +
+                " customer= " + userDetail.getUsername());
         return "basket";
     }
 
@@ -57,7 +63,9 @@ public class BasketController {
         List<OrderDetailDTO> list = basket.getOrderDetail();
         Basket basketSession = (Basket) session.getAttribute("basket");
         basketSession.setOrderDetail(list);
-
+        logger.info("Receive Basket and BasketSession for update," +
+                " basket= " + basket +
+                " basketSession= " + basketSession);
         basketService.updateInfoPriceAndQuantityInBasketSession(basket, basketSession);
         return "redirect:/basket/getCurrentBasket";
     }
@@ -74,6 +82,9 @@ public class BasketController {
         orderService.createOrderFromBasket(customer, basket);
         session.removeAttribute("basket");
 
+        logger.info("Take Basket and send with current Customer for create Order," +
+                " basket= " + basket +
+                " customer= " + customer);
         return "redirect:/getAllProducts";
     }
 
@@ -91,6 +102,7 @@ public class BasketController {
         basketService.addProductToBasket(basket, productId);
         session.setAttribute("basket", basket);
 
+        logger.info("Take ProductId and send to current basket, basket= " + basket + " productId= " + productId);
     }
 
     @RequestMapping("basket/removeOrderDetail/{orderDetailByProductId}")
@@ -98,6 +110,8 @@ public class BasketController {
 
         Basket basket = (Basket) session.getAttribute("basket");
         basketService.removeOrderDetailByProductId(basket, orderDetailByProductId);
+        logger.info("Take orderDetailId for remove from basket," +
+                " basket= " + basket + " orderDetailId= " + orderDetailByProductId);
         return "redirect:/basket/getCurrentBasket";
     }
 
@@ -106,6 +120,7 @@ public class BasketController {
 
         Basket basket = (Basket) session.getAttribute("basket");
         basketService.clearOrderDetailList(basket);
+        logger.info("Clear all orderDetail from basketSession, basket= " + basket);
         return "redirect:/basket/getCurrentBasket";
     }
 }

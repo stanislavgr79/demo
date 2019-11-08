@@ -17,6 +17,8 @@ import java.util.List;
 @Entity
 @Table(name = "customer")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(of = {"firstName", "lastName", "user"})
 @ToString(exclude = {"address", "ordersList"})
 public class Customer implements Serializable {
@@ -36,6 +38,7 @@ public class Customer implements Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Builder.Default
     @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "customer")

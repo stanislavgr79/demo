@@ -4,6 +4,8 @@ import com.example.demo.domain.entity.person.Role;
 import com.example.demo.domain.entity.person.User;
 import com.example.demo.domain.model.UserDTO;
 import com.example.demo.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,8 @@ import java.util.List;
 @RequestMapping("/")
 public class UserController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserService userService;
 
@@ -25,7 +29,8 @@ public class UserController {
         List<Role> roles = userService.getAllRole();
         uiModel.addAttribute("users", users);
         uiModel.addAttribute("Roles", roles);
-
+        logger.info("Model take List<User>NotCustomer, size= " + users.size() +
+                " List<Role>, size= " + roles.size());
         return "usersList";
     }
 
@@ -37,17 +42,21 @@ public class UserController {
        mav.addObject("Roles", roles);
        mav.addObject("UserDto", userDTO);
        mav.setViewName("regUser");
+       logger.info("ModelAndView take List<Role>, size= " + roles.size() +
+                " and new userDTO" + userDTO);
         return mav;
     }
 
     @RequestMapping(value = "admin/createUser", method = RequestMethod.POST)
     public String  regUserForm(@ModelAttribute(value = "UserDto") UserDTO userDTO) {
+        logger.info("UserDto send to createUserFromUserDTO, userDTO= " + userDTO);
         userService.createUserFromUserDTO(userDTO);
         return "redirect:/admin/getUsersNotCustomer";
     }
 
     @RequestMapping(value = "admin/deleteUser/{userId}")
-    public String deleteProduct(@PathVariable(value = "userId") Long userId) {
+    public String deleteUser(@PathVariable(value = "userId") Long userId) {
+        logger.info("User Id send to delete by id= " + userId);
         userService.deleteUser(userId);
         return "redirect:/admin/getUsersNotCustomer";
     }
@@ -55,11 +64,13 @@ public class UserController {
     @RequestMapping(value = "admin/editUser/{userId}")
     public ModelAndView getEditUserForm(@PathVariable(value = "userId") Long id) {
         User user = userService.getUserById(id);
+        logger.info("User getById for editForm, user= " + user);
         return new ModelAndView("editUser", "user", user);
     }
 
     @RequestMapping(value = "admin/editUser", method = RequestMethod.POST)
     public String editUser(@ModelAttribute(value = "user") User user) {
+        logger.info("User send to updateUserStatus, user= " + user);
         userService.updateUserStatus(user);
         return "redirect:/admin/getUsersNotCustomer";
     }

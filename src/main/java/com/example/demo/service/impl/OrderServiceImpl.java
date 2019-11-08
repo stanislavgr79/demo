@@ -8,6 +8,8 @@ import com.example.demo.domain.entity.shop.OrderDetail;
 import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
 import com.example.demo.service.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,8 @@ import java.util.List;
 @Service
 @Transactional
 public class OrderServiceImpl implements OrderService {
+
+    private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Autowired
     private OrderRepository orderRepository;
@@ -40,12 +44,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public Order getOrderById(Long id) {
-        return orderRepository.findById(id).get();
+        Order order = orderRepository.findById(id).get();
+        logger.info("Order find by id successfully, order= " + order);
+        return order;
     }
 
     @Override
     public void saveOrder(Order order) {
         orderRepository.save(order);
+        logger.info("Order save successfully, order= " + order);
     }
 
     @Override
@@ -62,22 +69,28 @@ public class OrderServiceImpl implements OrderService {
 
         updateOrderBySaveOrderDetailFromBasket(order, basket);
         customer.addOrder(order);
+        logger.info("Order fill fields from Basket, order= " + order + " basket= " + basket);
 
         customerService.updateCustomer(customer);
+        logger.info("Order save to customer, customer= " + customer + " order= " + order);
         customerOrderService.createCustomerOrderByCustomerAndOrder(customer, order);
-
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Order> findAllByCustomerNotNullOrderByOrderCreateDateDesc() {
-        return orderRepository.findAllByCustomerNotNullOrderByOrderCreateDateDesc();
+        List<Order> orderList = orderRepository.findAllByCustomerNotNullOrderByOrderCreateDateDesc();
+        logger.info("FindAllOrder (OrderByOrderCreateDateDesc), orderList_size= " + orderList.size());
+        return orderList;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Order> findAllByCustomer_IdOrderByOrderCreateDateDesc(Long id) {
-        return orderRepository.findAllByCustomer_IdOrderByOrderCreateDateDesc(id);
+        List<Order> orderList = orderRepository.findAllByCustomer_IdOrderByOrderCreateDateDesc(id);
+        logger.info("FindAllOrder (ByCustomer_Id), customer_id= " + id +
+                " orderList_size= " + orderList.size());
+        return orderList;
     }
 
     @Override
@@ -96,10 +109,12 @@ public class OrderServiceImpl implements OrderService {
                 status,
                 user.getEmail()
                 );
-
+        logger.info("Update order status and managerName, order =" + order.getId() +
+                " status= " + order.getStatusOrder().getSTATUS() +
+                " managerName= " + managerName);
     }
 
-    void updateOrderBySaveOrderDetailFromBasket(Order order, Basket basket){
+    private void updateOrderBySaveOrderDetailFromBasket(Order order, Basket basket){
 
         List<OrderDetail> orderDetails = order.getOrderDetail();
 
@@ -115,12 +130,16 @@ public class OrderServiceImpl implements OrderService {
             orderDetails.add(orderDetail);
             orderDetailService.saveOrderDetail(orderDetail);
         }
+        logger.info("Save orderDetail to order from basket," +
+                " orderDetailBasket_size= " + basketOrderDetail.size() +
+                " orderDetailSize after save in order_id =" + order.getId() +
+                " size= " + orderDetails.size());
     }
 
-    void updateInfoQuantityAndPriceInOrderFromBasket(Order order, Basket basket){
+    private void updateInfoQuantityAndPriceInOrderFromBasket(Order order, Basket basket){
         order.setTotalQuantity(basket.getTotalQuantity());
         order.setTotalPrice(basket.getTotalPrice());
+        logger.info("UpdateInfoQuantityAndPriceInOrder successfully, order= " + order);
     }
-
 
 }

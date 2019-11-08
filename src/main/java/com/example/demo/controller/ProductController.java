@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.entity.shop.Product;
 import com.example.demo.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +18,15 @@ import java.util.List;
 @RequestMapping("/")
 public class ProductController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+
     @Autowired
     private ProductService productService;
 
     @RequestMapping(value = "getAllProducts", method = RequestMethod.GET)
     public String listProducts (Model uiModel){
         List<Product> products = productService.getAllProducts();
+        logger.info("Model take List<Product> with status Enabled, listProducts_size= " + products.size());
         uiModel.addAttribute("products", products);
         return "productList";
     }
@@ -29,18 +34,21 @@ public class ProductController {
     @RequestMapping(value = "admin/product/getProductsDisabled", method = RequestMethod.GET)
     public String listDisabledProducts (Model uiModel){
         List<Product> products = productService.getAllDisabledProducts();
+        logger.info("Model take List<Product> with status Disabled, listProducts_size= " + products.size());
         uiModel.addAttribute("products", products);
         return "productDisableList";
     }
 
     @RequestMapping(value = "getProductById/{productId}")
     public ModelAndView getProductById(@PathVariable(value = "productId") Long productId) {
+        logger.info("Product will find by productId= " + productId);
         Product product = productService.getProductById(productId);
         return new ModelAndView("productPage", "productEntity", product);
     }
 
     @RequestMapping(value = "admin/product/delete/{productId}")
     public String deleteProduct(@PathVariable(value = "productId") Long productId) {
+        logger.info("Product will have status disabled by productId= " + productId);
         productService.deleteProduct(productId);
         return "redirect:/getAllProducts";
     }
@@ -48,6 +56,7 @@ public class ProductController {
     @RequestMapping(value = "admin/product/addProduct", method = RequestMethod.GET)
     public String getProductForm(Model model) {
         Product product = new Product();
+        logger.info("New product entity send to model, product= " + product);
         model.addAttribute("productForm", product);
         return "addProduct";
     }
@@ -57,6 +66,7 @@ public class ProductController {
                                          Product product, BindingResult result) {
         if (result.hasErrors())
             return "addProduct";
+        logger.info("Product take from model and will send to service for save/update, product= " + product);
         productService.addProduct(product);
         return "redirect:addProduct";
     }
@@ -64,11 +74,13 @@ public class ProductController {
     @RequestMapping(value = "admin/product/update/{id}")
     public ModelAndView getEditForm(@PathVariable(value = "id") Long id) {
         Product product = productService.getProductById(id);
+        logger.info("Product find by productId and send to model for edit, product= " + product);
         return new ModelAndView("editProduct", "product", product);
     }
 
     @RequestMapping(value = "admin/product/update", method = RequestMethod.POST)
     public String editProduct(@ModelAttribute(value = "product") Product product) {
+        logger.info("Product take from model and will send to service for update , product= " + product);
         productService.editProduct(product);
         return "redirect:/getAllProducts";
     }

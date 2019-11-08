@@ -11,6 +11,8 @@ import com.example.demo.service.CustomerService;
 
 import com.example.demo.service.UserService;
 import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class UserServiceImpl implements UserService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserRepository userRepository;
 
@@ -37,30 +41,39 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public List<User> getUsersNotCustomer() {
-        return userRepository.findAllByRolesIsNotContainingOrderByEmail(roleRepository.findById(3L).get());
+        List<User> userList = userRepository.findAllByRolesIsNotContainingOrderByEmail(roleRepository.getById(3L));
+        logger.info("GetUsersNotCustomer, userList_size= " + userList.size());
+        return userList;
     }
 
     @Override
     @Transactional(readOnly = true)
     public User getUserById(Long id) {
-        return userRepository.findById(id).get();
+        User user = userRepository.getById(id);
+        logger.info("GetUserById, user= " + user);
+        return user;
     }
 
     @Override
     @Transactional(readOnly = true)
     public User findUserByEmail(String email) {
-        return userRepository.getByEmail(email);
+        User user = userRepository.getByEmail(email);
+        logger.info("FindUserByEmail, user= " + user);
+        return user;
     }
 
     @Override
     public List<Role> getAllRole() {
-        return Lists.newArrayList(roleRepository.findAll()).stream()
+        List<Role> roleList = Lists.newArrayList(roleRepository.findAll()).stream()
                 .sorted(Comparator.comparing(Role::getName)).collect(Collectors.toList());
+        logger.info("GetAllRole, userList_size= " + roleList.size());
+        return roleList;
     }
 
     @Override
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
+        logger.info("Delete user_by_id, id= " + userId);
     }
 
     @Override
@@ -71,11 +84,13 @@ public class UserServiceImpl implements UserService {
 
         Set<Role> roles = user.getRoles();
         userDTO.getRoleSet()
-                .forEach(o->roles.add(roleRepository.findById(o.getId()).get()));
+                .forEach(o->roles.add(roleRepository.getById(o.getId())));
+//                .forEach(o->roles.add(roleRepository.getById(o.getId()).findById(o.getId()).get()));
         user.setRoles(roles);
 
         User secureUser = customerService.updateUserSecurity(user);
         userRepository.save(secureUser);
+        logger.info("Create user from userDTO, user= " + user);
     }
 
     @Override
@@ -86,6 +101,7 @@ public class UserServiceImpl implements UserService {
                 user.isAccountNonExpired(),
                 user.isCredentialsNonExpired(),
                 user.isAccountNonLocked());
+        logger.info("Update user_security_status, user= " + user);
     }
 
 }

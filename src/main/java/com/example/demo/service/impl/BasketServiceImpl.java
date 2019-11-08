@@ -62,6 +62,7 @@ public class BasketServiceImpl implements BasketService {
         basketDao.updateSubPriceInOrderDetailList(basket);
         basket.setTotalQuantity(basketDao.getBasketTotalQuantity(basket));
         basket.setTotalPrice(basketDao.getBasketTotalPrice(basket));
+        logger.info("UpdateInfoPriceAndQuantity in Basket = "+ basket);
     }
 
 }

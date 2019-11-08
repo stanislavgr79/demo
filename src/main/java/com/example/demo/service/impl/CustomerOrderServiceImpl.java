@@ -31,6 +31,8 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         CustomerOrder customerOrder = new CustomerOrder();
         customerOrder.setOrder(order);
         customerOrder.setCustomer(customer);
-        saveCustomerOrder(customerOrder);
+        this.saveCustomerOrder(customerOrder);
+        logger.info("CustomerOrderByCustomerAndOrder create successfully, customer= "+ customer +
+                " order= " + order);
     }
 }

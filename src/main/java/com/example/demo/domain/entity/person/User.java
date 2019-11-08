@@ -16,6 +16,8 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(of = "email")
 @ToString(of = {"id", "email"})
 public class User implements Serializable {
@@ -35,6 +37,7 @@ public class User implements Serializable {
     @OneToOne(mappedBy = "user")
     private Customer customer;
 
+    @Builder.Default
     @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

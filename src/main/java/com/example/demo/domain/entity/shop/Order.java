@@ -15,6 +15,8 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(exclude = "statusOrder")
 @ToString(exclude = {"orderDetail", "customer"})
 public class Order implements Serializable {
@@ -35,6 +37,7 @@ public class Order implements Serializable {
 
     private StatusOrder statusOrder;
 
+    @Builder.Default
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderDetail> orderDetail = new ArrayList<>();
 
@@ -44,6 +47,7 @@ public class Order implements Serializable {
 
     @Getter
     @RequiredArgsConstructor
+    @ToString
     public enum StatusOrder implements Serializable{
         NOT_READY("in process"), READY("ready to delivery");
         private final String STATUS;

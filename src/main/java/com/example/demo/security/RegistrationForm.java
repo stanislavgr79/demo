@@ -6,6 +6,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"id", "confirmPassword"})
 public class RegistrationForm {
 
     private Long id;

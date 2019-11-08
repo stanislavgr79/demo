@@ -38,29 +38,38 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional(readOnly = true)
     public List<Customer> getAllCustomers() {
-        return Lists.newArrayList(customerRepository.findAll());
+        List<Customer> customerList = Lists.newArrayList(customerRepository.findAll());
+        logger.info("FindAllCustomer, customerList_size= " + customerList.size());
+        return customerList;
     }
 
     @Override
     @Transactional(readOnly = true)
     public Customer getCustomerById(Long id) {
-        return customerRepository.findById(id).get();
+        Customer customer = customerRepository.findById(id).get();
+        logger.info("Customer find (getCustomerById) successfully, Customer= "+ customer);
+        return customer;
     }
 
     @Override
     @Transactional(readOnly = true)
     public Customer getCustomerByEmail(String email) {
-        return customerRepository.getByUser_Email(email);
+        Customer customer = customerRepository.getByUser_Email(email);
+        logger.info("Customer find (getCustomerByEmail) successfully, Customer= "+ customer
+                + " email= " + email);
+        return customer;
     }
 
     @Override
     public void deleteCustomer(Long id) {
         customerRepository.deleteById(id);
+        logger.info("Customer delete successfully by id= " + id);
     }
 
     @Override
     public void updateCustomer(Customer customer) {
         customerRepository.save(customer);
+        logger.info("Customer update successfully customer= " + customer);
     }
 
     @Override
@@ -70,11 +79,13 @@ public class CustomerServiceImpl implements CustomerService {
 
         User user = customer.getUser();
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        logger.info("User code password successfully, User="+ user);
         Set<Role> roles = user.getRoles();
         roles.add(roleRepository.findById(3L).get());
         user.setRoles(roles);
         customer.setUser(user);
-
+        logger.info("In Customer set User with Roles, Customer="+ customer +
+                " user= " + user + " roles= " + roles);
         customerRepository.save(customer);
 
         logger.info("Customer save successfully, Customer="+ customer);
@@ -83,6 +94,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public User updateUserSecurity(User user){
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        logger.info("User code password successfully, User="+ user);
         return user;
     }
 
@@ -103,7 +115,7 @@ public class CustomerServiceImpl implements CustomerService {
         address.setFlat(registrationForm.getFlat());
         user.setEmail(registrationForm.getEmail());
         user.setPassword(registrationForm.getPassword());
-
+        logger.info("Customer fill fields from RegistrationForm, Customer="+ customer);
         return customer;
     }
 

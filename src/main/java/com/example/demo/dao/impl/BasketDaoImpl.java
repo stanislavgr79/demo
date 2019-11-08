@@ -20,22 +20,30 @@ public class BasketDaoImpl implements BasketDao {
         basket.getOrderDetail().clear();
         basket.setTotalPrice(0);
         basket.setTotalQuantity(0);
-        logger.info("Basket clearOrderDetailList successfully, Basket ="+ basket);
+        logger.info("Basket clear: OrderDetailList, price, quantity - successfully," +
+                " Basket ="+ basket +
+                " basket_orderDetail_size= " + basket.getOrderDetail().size());
     }
 
     @Override
     public void removeOrderDetailDTOById(Basket basket, Long id) {
         List<OrderDetailDTO> orderDetail = basket.getOrderDetail();
+        logger.info("Size orderDetail before removeOrderDetailDTOBy product_Id," +
+                " size= " + orderDetail.size()+ " product_id= " + id);
+
         for (int x = 0; x < orderDetail.size(); x++) {
             if (orderDetail.get(x).getProduct().getId().equals(id)) {
                 orderDetail.remove(x);
-                logger.info("In Basket removeOrderDetailDTOById of Product successfully"+ basket);
+                logger.info("In Basket removeOrderDetailDTOById of Product_id successfully," +
+                        " basket"+ basket + " product_id= " + id);
             }
         }
+        logger.info("Size orderDetail after removeOrderDetailDTOBy product_Id," +
+                " size= " + orderDetail.size() + " product_id= " + id);
+
         basket.setTotalQuantity(getBasketTotalQuantity(basket));
-        logger.info("In Basket change TotalQuantity");
         basket.setTotalPrice(getBasketTotalPrice(basket));
-        logger.info("In Basket change TotalPrice");
+        logger.info("In Basket update TotalQuantity and TotalPrice, basket= " + basket);
     }
 
     @Override
@@ -54,10 +62,12 @@ public class BasketDaoImpl implements BasketDao {
                 .sum();
     }
 
+    @Override
     public void updateSubPriceInOrderDetailList(Basket basket) {
         List<OrderDetailDTO> orderDetail = basket.getOrderDetail();
-        for (int x = 0; x < orderDetail.size(); x++) {
-            orderDetail.get(x).setSubTotalPrice();
+        for (OrderDetailDTO orderDetailDTO : orderDetail) {
+            orderDetailDTO.setSubTotalPrice();
         }
+        logger.info("Update updateSubPriceInOrderDetailList in Basket");
     }
 }

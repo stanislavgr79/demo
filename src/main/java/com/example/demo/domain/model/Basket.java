@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
-@ToString
+@ToString(exclude = "orderDetail")
 public class Basket {
 
     private Long idCustomer;

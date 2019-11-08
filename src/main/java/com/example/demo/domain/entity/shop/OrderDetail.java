@@ -15,6 +15,7 @@ import java.io.Serializable;
 @Setter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 @Table(name = "order_detail")
 @ToString(exclude = "order")

@@ -10,8 +10,10 @@ import java.io.Serializable;
 @Entity
 @Table(name = "product")
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"productName"})
-@ToString(exclude = {"description", "productPrice"})
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
+@EqualsAndHashCode(of = {"productName", "description", "productPrice"})
+@ToString(exclude = {"description"})
 public class Product implements Serializable {
 
     @Id
@@ -22,5 +24,6 @@ public class Product implements Serializable {
     private String description;
     private double productPrice;
 
+    @Builder.Default
     private boolean enabled = true;
 }

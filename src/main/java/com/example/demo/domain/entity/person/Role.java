@@ -11,6 +11,8 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(of = "name")
 @ToString(exclude = "users")
 public class Role {
@@ -20,6 +22,7 @@ public class Role {
     private Long id;
     private String name;
 
+    @Builder.Default
     @ManyToMany(mappedBy = "roles")
     private Set<User> users = new HashSet<>();
 }

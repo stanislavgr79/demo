@@ -22,6 +22,8 @@ import java.util.List;
 @RequestMapping("/")
 public class HomeController {
 
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
     @Autowired
     private CustomerService customerService;
 
@@ -31,13 +33,8 @@ public class HomeController {
     @Autowired
     private RoleRepository roleRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
     @RequestMapping(value = { "index", "home"}, method = RequestMethod.GET)
     public String doIndex() {
-
-        logger.info("This is a index/home page");
-
         return "index";
     }
 

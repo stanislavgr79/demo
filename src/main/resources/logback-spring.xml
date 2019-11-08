@@ -24,11 +24,11 @@
             </encoder>
         </appender>
 
-        <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <file>${DEV_HOME}/debug.log</file>
+        <appender name="FILE-APP" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${DEV_HOME}/app.log</file>
 
             <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-                <fileNamePattern>${DEV_HOME}/archived/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <fileNamePattern>${DEV_HOME}/archived/app/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
                 <!-- each archived file, size max 10MB -->
                 <maxFileSize>10MB</maxFileSize>
                 <!-- total size of all archive files, if total size > 100MB, it will delete old archived file -->
@@ -42,14 +42,117 @@
             </encoder>
         </appender>
 
-        <logger name="org.springframework" level="INFO" additivity="true" >
-<!--            <appender-ref ref="FILE-ROLLING" />-->
+        <appender name="FILE-SPRING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${DEV_HOME}/spring.log</file>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${DEV_HOME}/archived/spring/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <!-- each archived file, size max 10MB -->
+                <maxFileSize>10MB</maxFileSize>
+                <!-- total size of all archive files, if total size > 100MB, it will delete old archived file -->
+                <totalSizeCap>100MB</totalSizeCap>
+                <!-- 30 days to keep -->
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <appender name="FILE-DAO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${DEV_HOME}/dao.log</file>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${DEV_HOME}/archived/dao/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <!-- each archived file, size max 10MB -->
+                <maxFileSize>10MB</maxFileSize>
+                <!-- total size of all archive files, if total size > 100MB, it will delete old archived file -->
+                <totalSizeCap>100MB</totalSizeCap>
+                <!-- 30 days to keep -->
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <appender name="FILE-SERVICE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${DEV_HOME}/service.log</file>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${DEV_HOME}/archived/service/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <!-- each archived file, size max 10MB -->
+                <maxFileSize>10MB</maxFileSize>
+                <!-- total size of all archive files, if total size > 100MB, it will delete old archived file -->
+                <totalSizeCap>100MB</totalSizeCap>
+                <!-- 30 days to keep -->
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <appender name="FILE-CONTROLLER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${DEV_HOME}/controller.log</file>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${DEV_HOME}/archived/controller/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <!-- each archived file, size max 10MB -->
+                <maxFileSize>10MB</maxFileSize>
+                <!-- total size of all archive files, if total size > 100MB, it will delete old archived file -->
+                <totalSizeCap>100MB</totalSizeCap>
+                <!-- 30 days to keep -->
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <appender name="FILE-hibernate" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${DEV_HOME}/hibernate.log</file>
+
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${DEV_HOME}/archived/hibernate/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <!-- each archived file, size max 10MB -->
+                <maxFileSize>10MB</maxFileSize>
+                <!-- total size of all archive files, if total size > 100MB, it will delete old archived file -->
+                <totalSizeCap>100MB</totalSizeCap>
+                <!-- 30 days to keep -->
+                <maxHistory>30</maxHistory>
+            </rollingPolicy>
+
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="com.example.demo" level="DEBUG" additivity="true">
+            <appender-ref ref="FILE-APP" />
         </logger>
-        <logger name="com.example.demo" level="DEBUG" additivity="true"/>
-        <logger name="org.hibernate.type.descriptor.sql" level="DEBUG" additivity="true"/>
+        <logger name="org.springframework" level="INFO" additivity="true" >
+            <appender-ref ref="FILE-SPRING" />
+        </logger>
+        <logger name="com.example.demo.dao" level="INFO" additivity="true">
+            <appender-ref ref="FILE-DAO" />
+        </logger>
+        <logger name="com.example.demo.service" level="INFO" additivity="true">
+            <appender-ref ref="FILE-SERVICE" />
+        </logger>
+        <logger name="com.example.demo.controller" level="INFO" additivity="true">
+            <appender-ref ref="FILE-CONTROLLER" />
+        </logger>
+        <logger name="org.hibernate.type.descriptor.sql" level="TRACE" additivity="false">
+            <appender-ref ref="FILE-hibernate" />
+        </logger>
 
         <root level="ERROR">
-            <appender-ref ref="FILE-ROLLING"/>
+            <appender-ref ref="FILE-APP"/>
             <appender-ref ref="STDOUT"/>
         </root>
     </springProfile>
