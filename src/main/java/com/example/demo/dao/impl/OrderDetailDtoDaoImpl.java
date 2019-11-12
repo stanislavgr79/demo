@@ -5,6 +5,7 @@ import com.example.demo.dao.OrderDetailDtoDao;
 import com.example.demo.domain.entity.shop.Product;
 import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
+import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,8 @@ public class OrderDetailDtoDaoImpl implements OrderDetailDtoDao {
             for (OrderDetailDTO el : orderDetailDTOList) {
                 if (product.equals(el.getProduct())) {
                     el.setQuantity(el.getQuantity() + 1);
-                    el.setPrice(el.getQuantity() * el.getProduct().getProductPrice());
+                    double temp = el.getQuantity() * el.getProduct().getProductPrice();
+                    el.setPrice(Precision.round(temp, 2));
                     break;
                 }
             }
@@ -47,8 +49,8 @@ public class OrderDetailDtoDaoImpl implements OrderDetailDtoDao {
 
         basket.setOrderDetail(orderDetailDTOList);
 
-        basket.setTotalQuantity(basketDao.getBasketTotalQuantity(basket));
-        basket.setTotalPrice(basketDao.getBasketTotalPrice(basket));
+        basket.setTotalQuantity(basketDao.getBasketTotalQuantityFromStreamOrderDetails(basket));
+        basket.setTotalPrice(basketDao.getBasketTotalPriceFromStreamOrderDetails(basket));
         logger.info("Product add to Basket, and update TotalQuantity, TotalPrice in Basket; " +
                 "product= " + product + "basket= " + basket);
     }

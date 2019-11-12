@@ -6,6 +6,7 @@ import com.example.demo.domain.entity.person.Address;
 import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.person.Role;
 import com.example.demo.domain.entity.person.User;
+import com.example.demo.domain.entity.shop.Order;
 import com.example.demo.security.RegistrationForm;
 import com.example.demo.service.CustomerService;
 import com.google.common.collect.Lists;
@@ -22,7 +23,6 @@ import java.util.Set;
 @Service
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
-
     private static final Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
     @Autowired
@@ -46,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     @Transactional(readOnly = true)
     public Customer getCustomerById(Long id) {
-        Customer customer = customerRepository.findById(id).get();
+        Customer customer = customerRepository.getById(id);
         logger.info("Customer find (getCustomerById) successfully, Customer= "+ customer);
         return customer;
     }
@@ -81,7 +81,7 @@ public class CustomerServiceImpl implements CustomerService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         logger.info("User code password successfully, User="+ user);
         Set<Role> roles = user.getRoles();
-        roles.add(roleRepository.findById(3L).get());
+        roles.add(roleRepository.getById(3L));
         user.setRoles(roles);
         customer.setUser(user);
         logger.info("In Customer set User with Roles, Customer="+ customer +
@@ -117,6 +117,12 @@ public class CustomerServiceImpl implements CustomerService {
         user.setPassword(registrationForm.getPassword());
         logger.info("Customer fill fields from RegistrationForm, Customer="+ customer);
         return customer;
+    }
+
+    @Override
+    public void addOrderToCustomerOrderList(Customer customer, Order order){
+        customer.getOrdersList().add(order);
+        logger.info("Customer add Order to him list<Order>, Customer="+ customer + ", order= " + order);
     }
 
 }

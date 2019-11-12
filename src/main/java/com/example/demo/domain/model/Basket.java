@@ -9,7 +9,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
+@EqualsAndHashCode(exclude = "idCustomer")
 @ToString(exclude = "orderDetail")
 public class Basket {
 
@@ -18,6 +20,7 @@ public class Basket {
     private double totalPrice;
     private int totalQuantity;
 
+    @Builder.Default
     private List<OrderDetailDTO> orderDetail = new ArrayList<>();
 
 }

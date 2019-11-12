@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/")
 public class HomeController {
@@ -44,33 +43,28 @@ public class HomeController {
         if (error != null)
             model.addAttribute("error", "Invalid username and Password");
         if (logout != null){
-
             model.addAttribute("logout", "You have logged out successfully");
         }
-
         return "login";
     }
 
     @RequestMapping(value = { "accountInfo" }, method = RequestMethod.GET)
     public String accountInfo(Model model) {
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();
-        GrantedAuthority role = userDetails.getAuthorities().stream().filter(o->(o.getAuthority().toString().equals(
-                roleRepository.findById(3L).get().getName()))).findFirst().orElse(null);
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        GrantedAuthority role = userDetails.getAuthorities().stream().filter(o->(o.getAuthority().equals(
+                roleRepository.getById(3L).getName()))).findFirst().orElse(null);
 
         if(role == null){
             logger.info("Current user have ROLE_ADMIN = " + userDetails.getUsername() +
                     " and redirect to listUsers.jsp");
-            return "redirect:/admin/getUsersNotCustomer";
+            return "redirect:/secure/getUsersNotCustomer";
         }
 
         logger.info("Current user online in accountInfo.jsp = " + userDetails.getUsername());
         Customer customer = customerService.getCustomerByEmail(userDetails.getUsername());
 
-        List<Order> orders =
-                orderService.findAllByCustomer_IdOrderByOrderCreateDateDesc(customer.getId());
-
+        List<Order> orders = orderService.findAllByCustomer_IdOrderByOrderCreateDateDesc(customer.getId());
 
         model.addAttribute("userDetails", userDetails);
         model.addAttribute("orders", orders);
@@ -78,4 +72,5 @@ public class HomeController {
 
         return "accountInfo";
     }
+
 }

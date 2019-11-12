@@ -63,7 +63,8 @@
                 <td><form:input path="orderDetail[${tagStatus.index}].product.productName" value="${od.product.productName}" readonly="true"/></td>
                 <td><form:input path="orderDetail[${tagStatus.index}].product.productPrice" value="${od.product.productPrice}" readonly="true"/></td>
                 <td><form:input path="orderDetail[${tagStatus.index}].quantity" value="${od.quantity}" readonly="false"/></td>
-                <td><form:input path="orderDetail[${tagStatus.index}].subTotalPrice" value="${od.subTotalPrice}" readonly="true"/></td>
+<%--                <td><form:input path="orderDetail[${tagStatus.index}].subTotalPrice" value="${od.subTotalPrice}" readonly="true"/></td>--%>
+                <td><form:input path="orderDetail[${tagStatus.index}].price" value="${od.price}" readonly="true"/></td>
 
                 <td>
                       <a href="<c:url value="/basket/removeOrderDetail/${od.product.id}" />"

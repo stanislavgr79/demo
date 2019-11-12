@@ -27,6 +27,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
+    private ProductService productService;
+
+    @Autowired
     private OrderDetailService orderDetailService;
 
     @Autowired
@@ -36,15 +39,12 @@ public class OrderServiceImpl implements OrderService {
     private CustomerOrderService customerOrderService;
 
     @Autowired
-    private ProductService productService;
-
-    @Autowired
     private UserService userService;
 
     @Override
     @Transactional(readOnly = true)
     public Order getOrderById(Long id) {
-        Order order = orderRepository.findById(id).get();
+        Order order = orderRepository.getById(id);
         logger.info("Order find by id successfully, order= " + order);
         return order;
     }
@@ -68,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
         saveOrder(order);
 
         updateOrderBySaveOrderDetailFromBasket(order, basket);
+//        customerService.addOrderToCustomerOrderList(customer, order);
         customer.addOrder(order);
         logger.info("Order fill fields from Basket, order= " + order + " basket= " + basket);
 
@@ -114,7 +115,7 @@ public class OrderServiceImpl implements OrderService {
                 " managerName= " + managerName);
     }
 
-    private void updateOrderBySaveOrderDetailFromBasket(Order order, Basket basket){
+    public void updateOrderBySaveOrderDetailFromBasket(Order order, Basket basket){
 
         List<OrderDetail> orderDetails = order.getOrderDetail();
 

@@ -28,7 +28,7 @@
     <div class="col-lg-12 well">
         <div class="row">
 
-            <c:url value="/admin/editUser" var="url"></c:url>
+            <c:url value="/secure/editUser" var="url"></c:url>
             <form:form method="post" modelAttribute="user" action="${url}">
                 <div class="col-sm-12">
                     <div class="row">

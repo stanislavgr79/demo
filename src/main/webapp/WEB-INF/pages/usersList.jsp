@@ -29,7 +29,7 @@
 </div>
 
 <div>
-    <a href="<c:url value="/admin/createUser" />"
+    <a href="<c:url value="/secure/createUser" />"
        class="btn btn-success" style="margin-left: 15px"  title="CreateUser" >
         <input class="button-update-sc" type="submit" value="CreateUser" style="color: #0f0f0f"/>
     </a>
@@ -71,13 +71,13 @@
                     <td>${user.accountNonLocked}</td>
 
                     <td>
-                        <a href="<c:url value="/admin/editUser/${user.id}" />"
+                        <a href="<c:url value="/secure/editUser/${user.id}" />"
                            class="btn btn-success" style="margin-left: 15px">
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
                     </td>
                         <td>
-                            <a href="<c:url value="/admin/deleteUser/${user.id}" />"
+                            <a href="<c:url value="/secure/deleteUser/${user.id}" />"
                                class="btn btn-danger" style="margin-left: 15px">
                                 <span class="glyphicon glyphicon-remove-sign"></span>
                             </a>

@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/")
 public class CustomerController {
@@ -28,7 +27,6 @@ public class CustomerController {
 
     @Autowired
     private UserService userService;
-
 
     @RequestMapping(value = "admin/getAllCustomers", method = RequestMethod.GET)
     public String listCustomers (Model uiModel){
@@ -59,14 +57,14 @@ public class CustomerController {
         return "redirect:/admin/getAllCustomers";
     }
 
-    //////////////////////////////////////////////////////////////////
-    @RequestMapping(value = "admin/customer/delete/{customerId}")
-    public String deleteCustomer(@PathVariable(value = "customerId") Long id) {
-        logger.info("Customer send for delete by customerId= " + id);
-        customerService.deleteCustomer(id);
-        return "redirect:/admin/getAllCustomers";
-    }
-    ///////////////////////////////////////////////////////////////////
+//    //////////////////////////////////////////////////////////////////
+//    @RequestMapping(value = "admin/customer/delete/{customerId}")
+//    public String deleteCustomer(@PathVariable(value = "customerId") Long id) {
+//        logger.info("Customer send for delete by customerId= " + id);
+//        customerService.deleteCustomer(id);
+//        return "redirect:/admin/getAllCustomers";
+//    }
+//    ///////////////////////////////////////////////////////////////////
 
 
 }

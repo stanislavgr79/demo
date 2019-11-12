@@ -27,7 +27,7 @@
 
 
 
-            <c:url var="add" value="/admin/createUser"></c:url>
+            <c:url var="add" value="/secure/createUser"></c:url>
             <form:form method="post" action="${add}" modelAttribute="UserDto"
                        enctype="multipart/form-data" id="kkk">
 
@@ -49,7 +49,7 @@
                         <div class="col-sm-6 form-group">
                             <form:label path="password">Password</form:label>
                             <form:input type="password" placeholder="********"
-                                        class="form-control" path="password"></form:input>
+                                        class="form-control" path="password" id="pass" ></form:input>
                         </div>
                         <div class="col-sm-6 form-group">
                             <label>Confirm Password</label>

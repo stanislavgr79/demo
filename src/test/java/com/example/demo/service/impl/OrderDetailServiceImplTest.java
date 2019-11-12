@@ -7,8 +7,6 @@ import com.example.demo.domain.entity.shop.Product;
 import com.example.demo.service.OrderDetailService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,8 +22,6 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class OrderDetailServiceImplTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(OrderDetailServiceImplTest.class);
-
     @MockBean
     private OrderDetailRepository orderDetailRepository;
 
@@ -36,7 +32,6 @@ public class OrderDetailServiceImplTest {
     public void shouldSaveOrderDetail_CallSaveMethodOfOrderDetailRepository() {
         Product product = new Product(22L, "Book", "easy", 3, true);
         Order order = Order.builder().id(1L).build();
-
         OrderDetail actualOrderDetail = new OrderDetail(12L, 5, 44.4, product, order);
         OrderDetail expectedOrderDetail = new OrderDetail(12L, 5, 44.4, product, order);
 
@@ -46,7 +41,5 @@ public class OrderDetailServiceImplTest {
 
         verify(orderDetailRepository, times(1)).save(expectedOrderDetail);
         assertThat(actualOrderDetail).isEqualTo(expectedOrderDetail);
-        logger.info("OrderDetail save successfully: " + actualOrderDetail);
-
     }
 }

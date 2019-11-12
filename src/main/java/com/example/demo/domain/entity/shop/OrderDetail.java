@@ -16,7 +16,8 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@Builder(access = AccessLevel.PUBLIC)
+@EqualsAndHashCode(exclude = "id")
 @Table(name = "order_detail")
 @ToString(exclude = "order")
 public class OrderDetail implements Serializable {

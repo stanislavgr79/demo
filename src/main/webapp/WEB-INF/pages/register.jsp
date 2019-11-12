@@ -25,8 +25,6 @@
     <div class="col-lg-12 well">
         <div class="row">
 
-
-
             <c:url var="add" value="/user/registration"></c:url>
             <form:form method="post" action="${add}" modelAttribute="registerForm"
                        enctype="multipart/form-data">

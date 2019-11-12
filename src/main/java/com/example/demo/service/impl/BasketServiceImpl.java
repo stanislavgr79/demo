@@ -29,7 +29,6 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     public void addProductToBasket(Basket basket, Long productId) {
-
         Product product = productService.getProductById(productId);
         orderDetailDtoDao.addProductToOrderDetailDTO(basket, product);
         logger.info("Product find successfully by Id ="+ product +
@@ -51,17 +50,17 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     public void updateInfoPriceAndQuantityInBasketSession(Basket basket, Basket basketSession) {
-        basketDao.updateSubPriceInOrderDetailList(basketSession);
-        basketSession.setTotalQuantity(basketDao.getBasketTotalQuantity(basket));
-        basketSession.setTotalPrice(basketDao.getBasketTotalPrice(basket));
+        basketDao.updateSubPriceInOrderDetailListOfBasket(basketSession);
+        basketSession.setTotalQuantity(basketDao.getBasketTotalQuantityFromStreamOrderDetails(basket));
+        basketSession.setTotalPrice(basketDao.getBasketTotalPriceFromStreamOrderDetails(basket));
         logger.info("UpdateInfoPriceAndQuantity in BasketSession = "+ basketSession);
     }
 
     @Override
     public void updateInfoPriceAndQuantityInBasket(Basket basket){
-        basketDao.updateSubPriceInOrderDetailList(basket);
-        basket.setTotalQuantity(basketDao.getBasketTotalQuantity(basket));
-        basket.setTotalPrice(basketDao.getBasketTotalPrice(basket));
+        basketDao.updateSubPriceInOrderDetailListOfBasket(basket);
+        basket.setTotalQuantity(basketDao.getBasketTotalQuantityFromStreamOrderDetails(basket));
+        basket.setTotalPrice(basketDao.getBasketTotalPriceFromStreamOrderDetails(basket));
         logger.info("UpdateInfoPriceAndQuantity in Basket = "+ basket);
     }
 

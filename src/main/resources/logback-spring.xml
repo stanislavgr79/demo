@@ -130,6 +130,26 @@
             <encoder>
                 <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
             </encoder>
+
+        </appender>
+
+            <appender name="FILE-SECURITY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${DEV_HOME}/spring-security.log</file>
+
+                <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                    <fileNamePattern>${DEV_HOME}/archived/spring-security/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                    <!-- each archived file, size max 10MB -->
+                    <maxFileSize>10MB</maxFileSize>
+                    <!-- total size of all archive files, if total size > 100MB, it will delete old archived file -->
+                    <totalSizeCap>100MB</totalSizeCap>
+                    <!-- 30 days to keep -->
+                    <maxHistory>30</maxHistory>
+                </rollingPolicy>
+
+                <encoder>
+                    <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+                </encoder>
+
         </appender>
 
         <logger name="com.example.demo" level="DEBUG" additivity="true">
@@ -137,6 +157,9 @@
         </logger>
         <logger name="org.springframework" level="INFO" additivity="true" >
             <appender-ref ref="FILE-SPRING" />
+        </logger>
+        <logger name="org.springframework.security" level="DEBUG" additivity="true" >
+            <appender-ref ref="FILE-SECURITY" />
         </logger>
         <logger name="com.example.demo.dao" level="INFO" additivity="true">
             <appender-ref ref="FILE-DAO" />
@@ -150,6 +173,7 @@
         <logger name="org.hibernate.type.descriptor.sql" level="TRACE" additivity="false">
             <appender-ref ref="FILE-hibernate" />
         </logger>
+
 
         <root level="ERROR">
             <appender-ref ref="FILE-APP"/>

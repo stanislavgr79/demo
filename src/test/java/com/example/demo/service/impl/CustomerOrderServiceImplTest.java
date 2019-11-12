@@ -5,11 +5,11 @@ import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.shop.CustomerOrder;
 import com.example.demo.domain.entity.shop.Order;
 import com.example.demo.service.CustomerOrderService;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,52 +25,55 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class CustomerOrderServiceImplTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductServiceImplTest.class);
-
     @MockBean
     private CustomerOrderRepository customerOrderRepository;
 
     @Autowired
     private CustomerOrderService customerOrderService;
 
+    private Order order;
+    private Customer customer;
+    private CustomerOrder expectedСustomerOrder;
+    private CustomerOrder actualСustomerOrder;
+
+    private static class TestDataStorage{
+        Customer customer = Customer.builder().id(1L).build();
+        Order order = Order.builder().id(1L).build();
+        CustomerOrder expectedСustomerOrder = CustomerOrder.builder().id(1L).order(order).customer(customer).build();
+        CustomerOrder actualСustomerOrder = CustomerOrder.builder().id(1L).order(order).customer(customer).build();
+    }
+
+    @Before
+    public void setUp() {
+        order = new TestDataStorage().order;
+        customer = new TestDataStorage().customer;
+        expectedСustomerOrder = new TestDataStorage().expectedСustomerOrder;
+        actualСustomerOrder = new TestDataStorage().actualСustomerOrder;
+    }
+
+    @After
+    public void tearDown() {
+        order = null;
+        customer = null;
+        expectedСustomerOrder = null;
+        actualСustomerOrder = null;
+    }
 
     @Test
     public void shouldSaveCustomerOrder_CallSaveMethodOfCustomerOrderRepository() {
-
-        Customer customer = Customer.builder().id(1L).build();
-        Order order = Order.builder().id(1L).build();
-
-        CustomerOrder expectedСustomerOrder = new CustomerOrder();
-        expectedСustomerOrder.setId(1L);
-        expectedСustomerOrder.setOrder(order);
-        expectedСustomerOrder.setCustomer(customer);
-
-        CustomerOrder actualСustomerOrder = new CustomerOrder();
-        actualСustomerOrder.setId(1L);
-        actualСustomerOrder.setOrder(order);
-        actualСustomerOrder.setCustomer(customer);
-
         when(customerOrderRepository.save(any(CustomerOrder.class))).thenReturn(actualСustomerOrder);
 
         customerOrderService.saveCustomerOrder(expectedСustomerOrder);
 
         verify(customerOrderRepository, times(1)).save(expectedСustomerOrder);
         assertThat(actualСustomerOrder).isEqualTo(expectedСustomerOrder);
-        logger.info("OrderDetail save successfully: " + actualСustomerOrder);
     }
 
     @Test
     public void shouldCreateCustomerOrder_ByCustomerAndOrder() {
-        Customer customer = Customer.builder().id(1L).build();
-        Order order = Order.builder().id(1L).build();
-
-        CustomerOrder expectedСustomerOrder = new CustomerOrder();
-        expectedСustomerOrder.setOrder(order);
-        expectedСustomerOrder.setCustomer(customer);
-
         when(customerOrderRepository.save(any(CustomerOrder.class))).thenReturn(expectedСustomerOrder);
         customerOrderService.createCustomerOrderByCustomerAndOrder(customer, order);
-        verify(customerOrderRepository, times(1)).save(expectedСustomerOrder);
+        verify(customerOrderRepository, times(1)).save(any(CustomerOrder.class));
     }
 
 }

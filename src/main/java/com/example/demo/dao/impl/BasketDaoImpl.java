@@ -4,6 +4,7 @@ package com.example.demo.dao.impl;
 import com.example.demo.dao.BasketDao;
 import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
+import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -41,33 +42,34 @@ public class BasketDaoImpl implements BasketDao {
         logger.info("Size orderDetail after removeOrderDetailDTOBy product_Id," +
                 " size= " + orderDetail.size() + " product_id= " + id);
 
-        basket.setTotalQuantity(getBasketTotalQuantity(basket));
-        basket.setTotalPrice(getBasketTotalPrice(basket));
+        basket.setTotalQuantity(getBasketTotalQuantityFromStreamOrderDetails(basket));
+        basket.setTotalPrice(getBasketTotalPriceFromStreamOrderDetails(basket));
         logger.info("In Basket update TotalQuantity and TotalPrice, basket= " + basket);
     }
 
     @Override
-    public double getBasketTotalPrice(Basket basket) {
-
-        return basket.getOrderDetail().stream()
-                .mapToDouble(o -> o.getQuantity() * o.getProductPrice())
+    public double getBasketTotalPriceFromStreamOrderDetails(Basket basket) {
+        double sum = basket.getOrderDetail().stream()
+                .mapToDouble(o -> o.getQuantity() * o.getProduct().getProductPrice())
                 .sum();
+        return Precision.round(sum, 2);
     }
 
     @Override
-    public int getBasketTotalQuantity(Basket basket) {
-
+    public int getBasketTotalQuantityFromStreamOrderDetails(Basket basket) {
         return basket.getOrderDetail().stream()
                 .mapToInt(OrderDetailDTO::getQuantity)
                 .sum();
     }
 
     @Override
-    public void updateSubPriceInOrderDetailList(Basket basket) {
+    public void updateSubPriceInOrderDetailListOfBasket(Basket basket) {
         List<OrderDetailDTO> orderDetail = basket.getOrderDetail();
         for (OrderDetailDTO orderDetailDTO : orderDetail) {
-            orderDetailDTO.setSubTotalPrice();
+//            orderDetailDTO.setSubTotalPrice();
+            double temp = orderDetailDTO.getQuantity()*orderDetailDTO.getProduct().getProductPrice();
+            orderDetailDTO.setPrice(Precision.round(temp, 2));
         }
-        logger.info("Update updateSubPriceInOrderDetailList in Basket");
+        logger.info("Update updateSubPriceInOrderDetailListOfBasket in Basket");
     }
 }

@@ -1,8 +1,6 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.model.Basket;
-import org.springframework.stereotype.Repository;
-
 
 public interface BasketDao {
 
@@ -10,9 +8,9 @@ public interface BasketDao {
 
     void removeOrderDetailDTOById(Basket basket, Long id);
 
-    double getBasketTotalPrice(Basket basket);
+    double getBasketTotalPriceFromStreamOrderDetails(Basket basket);
 
-    int getBasketTotalQuantity(Basket basket);
+    int getBasketTotalQuantityFromStreamOrderDetails(Basket basket);
 
-    void updateSubPriceInOrderDetailList(Basket basket);
+    void updateSubPriceInOrderDetailListOfBasket(Basket basket);
 }

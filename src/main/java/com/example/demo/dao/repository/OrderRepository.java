@@ -14,6 +14,8 @@ import java.util.List;
 @Transactional
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
+    Order getById(Long id);
+
     List<Order> findAllByCustomerNotNullOrderByOrderCreateDateDesc();
 
     List<Order> findAllByCustomer_IdOrderByOrderCreateDateDesc(Long id);

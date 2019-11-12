@@ -53,6 +53,7 @@ public class ProductController {
         return "redirect:/getAllProducts";
     }
 
+
     @RequestMapping(value = "admin/product/addProduct", method = RequestMethod.GET)
     public String getProductForm(Model model) {
         Product product = new Product();
@@ -68,7 +69,7 @@ public class ProductController {
             return "addProduct";
         logger.info("Product take from model and will send to service for save/update, product= " + product);
         productService.addProduct(product);
-        return "redirect:addProduct";
+        return "redirect:/admin/product/addProduct";
     }
 
     @RequestMapping(value = "admin/product/update/{id}")

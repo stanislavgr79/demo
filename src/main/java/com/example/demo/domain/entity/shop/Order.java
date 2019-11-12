@@ -1,6 +1,5 @@
 package com.example.demo.domain.entity.shop;
 
-
 import com.example.demo.domain.entity.person.Customer;
 import lombok.*;
 
@@ -17,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(access = AccessLevel.PUBLIC)
-@EqualsAndHashCode(exclude = "statusOrder")
+@EqualsAndHashCode(of = {"totalPrice", "totalQuantity", "customer"})
 @ToString(exclude = {"orderDetail", "customer"})
 public class Order implements Serializable {
 
@@ -52,5 +51,4 @@ public class Order implements Serializable {
         NOT_READY("in process"), READY("ready to delivery");
         private final String STATUS;
     }
-
 }

@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(access = AccessLevel.PUBLIC)
-@EqualsAndHashCode(of = {"productName", "description", "productPrice"})
+@EqualsAndHashCode(of = {"productName", "productPrice"})
 @ToString(exclude = {"description"})
 public class Product implements Serializable {
 

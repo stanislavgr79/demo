@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerOrderRepository extends CrudRepository<CustomerOrder, Long> {
 
-    CustomerOrder getDistinctByOrderId(Long id);
 }

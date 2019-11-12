@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.person.User;
+import com.example.demo.domain.entity.shop.Order;
 import com.example.demo.security.RegistrationForm;
 
 import java.util.List;
@@ -24,4 +25,5 @@ public interface CustomerService {
 
     User updateUserSecurity(User user);
 
+    void addOrderToCustomerOrderList(Customer customer, Order order);
 }

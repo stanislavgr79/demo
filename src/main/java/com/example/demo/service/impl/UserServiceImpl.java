@@ -6,9 +6,9 @@ import com.example.demo.domain.entity.person.Role;
 import com.example.demo.domain.entity.person.User;
 
 import com.example.demo.domain.model.UserDTO;
+
+
 import com.example.demo.service.CustomerService;
-
-
 import com.example.demo.service.UserService;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;

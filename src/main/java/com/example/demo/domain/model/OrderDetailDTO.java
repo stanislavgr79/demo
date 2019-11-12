@@ -1,14 +1,13 @@
 package com.example.demo.domain.model;
 
 import com.example.demo.domain.entity.shop.Product;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(of = "product")
 public class OrderDetailDTO {
 
@@ -17,15 +16,17 @@ public class OrderDetailDTO {
 
     private Product product;
 
-    public double getSubTotalPrice() {
-        return quantity * getProductPrice();
-    }
+//    public double getSubTotalPrice() {
+//        return quantity * product.getProductPrice();
+//    }
 
-    public double getProductPrice() {
-        return product.getProductPrice();
-    }
+//    public void setSubTotalPrice(){
+//        this.price = quantity * product.getProductPrice();
+//    }
 
-    public void setSubTotalPrice(){
-        this.price = quantity * getProductPrice();
-    }
+//    public double getProductPrice() {
+//        return product.getProductPrice();
+//    }
+
+
 }

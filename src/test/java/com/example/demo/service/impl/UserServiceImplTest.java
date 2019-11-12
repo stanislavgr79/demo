@@ -8,11 +8,11 @@ import com.example.demo.domain.model.UserDTO;
 import com.example.demo.service.CustomerService;
 import com.example.demo.service.UserService;
 import com.google.common.collect.Lists;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -33,8 +33,6 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class UserServiceImplTest {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImplTest.class);
-
     @MockBean
     private UserRepository userRepository;
 
@@ -47,41 +45,65 @@ public class UserServiceImplTest {
     @Autowired
     private UserService userService;
 
-    @Test
-    public void shouldReturnListUsersWithNoContainsRole_ByEmail_LongId_3L() {
+    private List<Role> expectedRoleList;
+    private User expectedUser;
+    private UserDTO userDTO;
+    private List<User> expectedUsers;
+    private Role roleManager;
+    private Role roleUser;
 
+    private static class TestDataStorage{
         Role role1 = Role.builder().id(1L).name("ROLE_ADMIN").build();
         Role role2 = Role.builder().id(2L).name("ROLE_MANAGER").build();
-        Role role3 = Role.builder().id(3L).name("ROLE_CUSTOMER").build();
-        Set<Role> roleSet1 = new HashSet<>();
-        Set<Role> roleSet2 = new HashSet<>();
-        roleSet1.add(role1);
-        roleSet2.add(role2);
-        User user1 = User.builder().id(1L).email("admin@shop.ru").roles(roleSet1).build();
-        User user2 = User.builder().id(2L).email("manager1@shop.ru").roles(roleSet2).build();
+        Role role3 = Role.builder().id(3L).name("ROLE_USER").build();
+        List<Role> expectedRoleList = Lists.newArrayList(role1, role2, role3).stream()
+                .sorted(Comparator.comparing(Role::getName)).collect(Collectors.toList());
 
-        List<User> expectedUsers = Arrays.asList(user1, user2);
+        Set<Role> roleSet = new HashSet<>(Collections.singletonList(role2));
+        UserDTO userDTO = UserDTO.builder().email("manager1@shop.ru").password("123").roleSet(roleSet).build();
+        Set<Role> roleSetOfAdmin = new HashSet<>(Collections.singletonList(role1));
+        User admin = User.builder().id(1L).email("admin@shop.ru").roles(roleSetOfAdmin).build();
+        User expectedUser = User.builder().id(2L).email("manager1@shop.ru").roles(roleSet)
+                .enabled(false).accountNonExpired(true).credentialsNonExpired(true).accountNonLocked(true)
+                .build();
+        List<User> expectedUsers = Arrays.asList(admin, expectedUser);
+    }
 
-        doReturn(role3).when(roleRepository).getById(3L);
+    @Before
+    public void setUp() {
+        expectedUsers = new TestDataStorage().expectedUsers;
+        expectedRoleList = new TestDataStorage().expectedRoleList;
+        expectedUser = new TestDataStorage().expectedUser;
+        userDTO = new TestDataStorage().userDTO;
+        roleManager = new TestDataStorage().role2;
+        roleUser = new TestDataStorage().role3;
+    }
+
+    @After
+    public void tearDown() {
+        expectedRoleList = null;
+        expectedUsers = null;
+        expectedUser = null;
+        userDTO = null;
+        roleManager = null;
+        roleUser = null;
+    }
+
+    @Test
+    public void shouldReturnListUsersWithNoContainsRole_ByEmail_LongId_3L() {
+        doReturn(roleUser).when(roleRepository).getById(3L);
         when(userRepository.findAllByRolesIsNotContainingOrderByEmail(roleRepository.getById(3L))).thenReturn(expectedUsers);
 
         List<User> actualUsers = userService.getUsersNotCustomer();
 
-        verify(userRepository, times(1)).findAllByRolesIsNotContainingOrderByEmail(role3);
+        verify(userRepository, times(1)).findAllByRolesIsNotContainingOrderByEmail(roleUser);
         verify(roleRepository, times(2)).getById(3L);
         assertNotNull(actualUsers);
         assertEquals(actualUsers.size(), 2);
-        logger.info("Result: expectedUsers_size= " + expectedUsers.size() +
-                ", actualUsers_size= " + actualUsers.size());
     }
 
     @Test
     public void shouldReturnUser_whenGetUserByIdIsCalled_LongId() {
-        Role role2 = Role.builder().id(2L).name("ROLE_MANAGER").build();
-        Set<Role> roleSet2 = new HashSet<>();
-        roleSet2.add(role2);
-        User expectedUser = User.builder().id(2L).email("manager1@shop.ru").roles(roleSet2).build();
-
         given(this.userRepository.getById(any())).willReturn(expectedUser);
 
         User actualUser = userService.getUserById(2L);
@@ -89,16 +111,10 @@ public class UserServiceImplTest {
         verify(userRepository, times(1)).getById(2L);
         assertEquals((long) actualUser.getId(), 2L);
         assertThat(expectedUser).isEqualTo(actualUser);
-        logger.info("Result: expected_user_id= " + expectedUser.getId() + ", actual_user_id= " + actualUser.getId());
     }
 
     @Test
     public void shouldReturnUser_whenGetByEmailIsCalled_StringEmail() {
-        Role role2 = Role.builder().id(2L).name("ROLE_MANAGER").build();
-        Set<Role> roleSet2 = new HashSet<>();
-        roleSet2.add(role2);
-        User expectedUser = User.builder().id(2L).email("manager1@shop.ru").roles(roleSet2).build();
-
         given(this.userRepository.getByEmail(any())).willReturn(expectedUser);
 
         User actualUser = userService.findUserByEmail("manager1@shop.ru");
@@ -106,17 +122,10 @@ public class UserServiceImplTest {
         verify(userRepository, times(1)).getByEmail("manager1@shop.ru");
         assertEquals(actualUser.getEmail(), "manager1@shop.ru");
         assertThat(expectedUser).isEqualTo(actualUser);
-        logger.info("Result: expected_user_id= " + expectedUser.getId() + ", actual_user_id= " + actualUser.getId());
     }
 
     @Test
     public void shouldReturnListAllRole() {
-        Role role1 = Role.builder().id(1L).name("ROLE_ADMIN").build();
-        Role role2 = Role.builder().id(2L).name("ROLE_MANAGER").build();
-        Role role3 = Role.builder().id(3L).name("ROLE_CUSTOMER").build();
-        List<Role> expectedRoleList = Lists.newArrayList(role1, role2, role3).stream()
-                .sorted(Comparator.comparing(Role::getName)).collect(Collectors.toList());
-
         when(roleRepository.findAll()).thenReturn(expectedRoleList);
 
         List<Role> actualRoleList = userService.getAllRole();
@@ -125,8 +134,6 @@ public class UserServiceImplTest {
         assertNotNull(actualRoleList);
         assertEquals(actualRoleList.size(), 3);
         assertThat(actualRoleList).isEqualTo(expectedRoleList);
-        logger.info("Result: expectedProducts_size= " + actualRoleList.size() +
-                ", actualProducts_size= " + expectedRoleList.size());
     }
 
     @Test
@@ -138,44 +145,27 @@ public class UserServiceImplTest {
 
     @Test
     public void shouldCreateUser_FromUserDTO_CallSaveMethodOfUserRepository() {
-        Role role2 = Role.builder().id(2L).name("ROLE_MANAGER").build();
-        Set<Role> roleSet = new HashSet<>();
-        roleSet.add(role2);
-        UserDTO userDTO = UserDTO.builder().email("manager1@shop.ru").password("123").build();
-        userDTO.setRoleSet(roleSet);
-
-        User actualUser = User.builder().id(2L).email("manager1@shop.ru").roles(roleSet).build();
-
-        when(roleRepository.getById(anyLong())).thenReturn(role2);
-        when(customerService.updateUserSecurity(any(User.class))).thenReturn(actualUser);
-        when(userRepository.save(any(User.class))).thenReturn(actualUser);
+        when(roleRepository.getById(anyLong())).thenReturn(roleManager);
+        when(customerService.updateUserSecurity(any(User.class))).thenReturn(expectedUser);
+        when(userRepository.save(any(User.class))).thenReturn(expectedUser);
 
         userService.createUserFromUserDTO(userDTO);
 
         verify(roleRepository, times(1)).getById(2L);
-        verify(customerService, times(1)).updateUserSecurity(actualUser);
-        verify(userRepository, times(1)).save(actualUser);
-        assertEquals(userDTO.getEmail(), actualUser.getEmail());
+        verify(customerService, times(1)).updateUserSecurity(expectedUser);
+        verify(userRepository, times(1)).save(expectedUser);
+        assertEquals(userDTO.getEmail(), expectedUser.getEmail());
     }
 
     @Test
     public void shouldChangeUserStatusEnabled_toFalse() {
-        Role role2 = Role.builder().id(2L).name("ROLE_MANAGER").build();
-        Set<Role> roleSet2 = new HashSet<>();
-        roleSet2.add(role2);
-        User expectedUser = User.builder().id(2L).email("manager1@shop.ru").roles(roleSet2)
-                .enabled(false).accountNonExpired(true).credentialsNonExpired(true).accountNonLocked(true)
-                .build();
-
         doNothing().when(userRepository).updateUserStatus(
                 expectedUser.getId(), expectedUser.isEnabled(), expectedUser.isAccountNonExpired(),
-                expectedUser.isCredentialsNonExpired(), expectedUser.isAccountNonLocked()
-        );
+                expectedUser.isCredentialsNonExpired(), expectedUser.isAccountNonLocked());
 
         userService.updateUserStatus(expectedUser);
         verify(userRepository, times(1)).updateUserStatus(
                 expectedUser.getId(), expectedUser.isEnabled(), expectedUser.isAccountNonExpired(),
-                expectedUser.isCredentialsNonExpired(), expectedUser.isAccountNonLocked()
-        );
+                expectedUser.isCredentialsNonExpired(), expectedUser.isAccountNonLocked());
     }
 }

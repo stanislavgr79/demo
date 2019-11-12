@@ -10,6 +10,8 @@ import java.io.Serializable;
 @Setter
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(of = "id")
 @Table(name = "customer_order")
 @ToString

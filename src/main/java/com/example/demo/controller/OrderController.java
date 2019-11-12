@@ -31,6 +31,13 @@ public class OrderController {
         return "ordersList";
     }
 
+    @RequestMapping("order/{orderId}")
+    public @ResponseBody ModelAndView viewOrder(@PathVariable(value = "orderId") Long id) {
+        Order order = orderService.getOrderById(id);
+        logger.info("Order send to ModelAnView, order= " + order);
+        return new ModelAndView("viewOrder", "Order", order);
+    }
+
     @RequestMapping("admin/editOrder/{orderId}")
     public @ResponseBody ModelAndView editOrder(@PathVariable(value = "orderId") Long id) {
         Order order = orderService.getOrderById(id);
@@ -41,8 +48,8 @@ public class OrderController {
         return mav;
     }
 
-    @RequestMapping(value = "admin/editOrder/update", method = RequestMethod.POST)
-    public String editProduct(@ModelAttribute(value = "Order") Order order) {
+    @RequestMapping(value = "admin/editOrder", method = RequestMethod.POST)
+    public String editOrder(@ModelAttribute(value = "Order") Order order) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext().getAuthentication().getPrincipal();
         String managerName = userDetails.getUsername();
@@ -50,12 +57,4 @@ public class OrderController {
         logger.info("Order update status by manager, order= " + order + " manager= " + managerName);
         return "redirect:/admin/getAllOrders";
     }
-
-    @RequestMapping("order/{orderId}")
-    public @ResponseBody ModelAndView viewOrder(@PathVariable(value = "orderId") Long id) {
-        Order order = orderService.getOrderById(id);
-        logger.info("Order send to ModelAnView, order= " + order);
-        return new ModelAndView("viewOrder", "Order", order);
-    }
-
 }

@@ -40,7 +40,7 @@
      style="width: 1145px; margin-bottom: 180px;">
     <h2>The List of Products in Order</h2>
 
-    <c:url value="/admin/editOrder/update" var="url"></c:url>
+    <c:url value="/admin/editOrder" var="url"></c:url>
 <form:form action="${url}" method="post" modelAttribute="Order"  name="st">
 
 <table class="table table" width="99%" style="width: available">
@@ -73,12 +73,6 @@
             <option>${entry.name()}</option>
         </c:forEach>
     </form:select>
-
-<%--    <form:select  path="statusOrder">--%>
-<%--        <c:forEach items="${stateBean.values}" var="state">--%>
-<%--            <option value="${state}" >${state}</option>--%>
-<%--        </c:forEach>--%>
-<%--    </form:select>--%>
 
     </tbody>
 

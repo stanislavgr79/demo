@@ -50,7 +50,7 @@
                 <td style="width: 160px">${item.description}</td>
                 <td>${item.enabled}</td>
                 <td>
-                    <a href="<c:url value="getProductById/${item.id}" />"
+                    <a href="<c:url value="/getProductById/${item.id}" />"
                        class="btn btn-info" role="button">
                         <span class="glyphicon glyphicon-info-sign"></span>
                     </a>
