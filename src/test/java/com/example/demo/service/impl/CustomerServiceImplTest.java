@@ -11,6 +11,7 @@ import com.example.demo.security.RegistrationForm;
 import com.example.demo.service.CustomerService;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,6 +125,7 @@ public class CustomerServiceImplTest {
         assertThat(actualCustomer.getId()).isEqualTo(expectedCustomer.getId());
     }
 
+    @Ignore
     @Test
     public void shouldCreateCustomerAddRoleCryptPasswordAndSave_ByRegistrationForm() {
         Role role = Role.builder().id(3L).name("ROLE_USER").build();

@@ -35,11 +35,11 @@ public class BasketController {
     private BasketService basketService;
 
     @RequestMapping(value = "basket/getCurrentBasket", method = RequestMethod.GET)
-    public String getCurrentOrder(Model model, HttpSession session) {
+    public String getCurrentBasket(Model model, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) auth.getPrincipal();
         if (userDetail == null) {
-            return "redirect:/user/registration";
+            return "redirect:/login";
         }
 
         Basket basket = (Basket) session.getAttribute("basket");
@@ -56,7 +56,7 @@ public class BasketController {
     }
 
     @RequestMapping(value = "basket/getCurrentBasket", method = RequestMethod.POST, params = "action1")
-    public String updateOrder(@Valid @ModelAttribute(value = "Basket") Basket basket, HttpSession session) {
+    public String updateBasket(@Valid @ModelAttribute(value = "Basket") Basket basket, HttpSession session) {
 
         List<OrderDetailDTO> list = basket.getOrderDetail();
         Basket basketSession = (Basket) session.getAttribute("basket");
@@ -70,7 +70,7 @@ public class BasketController {
 
 
     @RequestMapping(value = "basket/getCurrentBasket", method = RequestMethod.POST, params = "action2")
-    public String saveOrder(@Valid @ModelAttribute(value = "Basket") Basket basket, HttpSession session) {
+    public String saveBasket(@Valid @ModelAttribute(value = "Basket") Basket basket, HttpSession session) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String email = auth.getName();
@@ -88,7 +88,7 @@ public class BasketController {
 
     @RequestMapping("basket/add/{productId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void addOrderDetail(@PathVariable(value = "productId") Long productId, HttpSession session) {
+    public void addOrderDetailToBasket(@PathVariable(value = "productId") Long productId, HttpSession session) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         Basket basket = (Basket) session.getAttribute("basket");
@@ -104,7 +104,7 @@ public class BasketController {
     }
 
     @RequestMapping("basket/removeOrderDetail/{orderDetailByProductId}")
-    public String removeOrderDetail(@PathVariable(value = "orderDetailByProductId") Long orderDetailByProductId, HttpSession session) {
+    public String removeOrderDetailFromBasket(@PathVariable(value = "orderDetailByProductId") Long orderDetailByProductId, HttpSession session) {
 
         Basket basket = (Basket) session.getAttribute("basket");
         basketService.removeOrderDetailByProductId(basket, orderDetailByProductId);
@@ -114,7 +114,7 @@ public class BasketController {
     }
 
     @RequestMapping("basket/removeAllDetails")
-    public String removeAllOrderDetails(HttpSession session) {
+    public String removeAllOrderDetailsFromBasket(HttpSession session) {
 
         Basket basket = (Basket) session.getAttribute("basket");
         basketService.clearOrderDetailList(basket);

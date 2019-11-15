@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+Hello, <span th:text="${#ctx.name}"></span>!
+
+<p>
+    You Order successfully ready on the <b>Shop.ru</b>
+    <span th:text="${#dates.format(updateDate, pattern)}"></span>
+</p>
+
+<p>
+    Number Your Order: <span th:text="${#ctx.order.id}"></span>
+</p>
+
+<p>
+    Regards, <em>The Shop.ru Team</em>
+</p>
+</body>
+</html>

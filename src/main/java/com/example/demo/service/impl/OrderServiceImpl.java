@@ -7,6 +7,7 @@ import com.example.demo.domain.entity.shop.Order;
 import com.example.demo.domain.entity.shop.OrderDetail;
 import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
+import com.example.demo.mail.EmailService;
 import com.example.demo.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +42,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Override
     @Transactional(readOnly = true)
@@ -75,6 +80,12 @@ public class OrderServiceImpl implements OrderService {
         customerService.updateCustomer(customer);
         logger.info("Order save to customer, customer= " + customer + " order= " + order);
         customerOrderService.createCustomerOrderByCustomerAndOrder(customer, order);
+
+        try {
+            emailService.sendOrderMailToRecipient(customer, order);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -110,6 +121,15 @@ public class OrderServiceImpl implements OrderService {
                 status,
                 user.getEmail()
                 );
+
+        if (status == 1){
+            try {
+                emailService.sendOrderUpdateStatusToRecipient(order);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }
+
         logger.info("Update order status and managerName, order =" + order.getId() +
                 " status= " + order.getStatusOrder().getSTATUS() +
                 " managerName= " + managerName);

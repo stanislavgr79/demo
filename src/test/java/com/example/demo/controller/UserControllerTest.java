@@ -28,6 +28,7 @@ import javax.servlet.Filter;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.mockito.Mockito.when;
@@ -187,7 +188,8 @@ public class UserControllerTest {
                 .with(SecurityRequestPostProcessors.userDetailsService(ADMIN))
                 .param("id","2")
                 .param("email","manager1@shop.ru")
-                .param("password","pass"))
+                .param("password","pass")
+        )
                 //                .param("roleSet.id", "2"))
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/secure/getUsersNotCustomer"));
 
@@ -196,5 +198,7 @@ public class UserControllerTest {
         verify(userService, times(1)).updateUserStatus(any(User.class));
         assertThat(mvcResult.getRequest().getParameterMap().get("id")[0]).isEqualTo("2");
         assertThat(mvcResult.getRequest().getPathInfo()).isEqualTo("/secure/editUser");
+
     }
+
 }

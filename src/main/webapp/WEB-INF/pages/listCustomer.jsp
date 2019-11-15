@@ -20,6 +20,7 @@
 
 <%@ include file="navbar.jsp" %>
 <%@ include file="fon.jsp" %>
+<%@ include file="footer.jsp" %>
 
 <div class="container"
      style="width: 1145px; margin-bottom: 180px;">
@@ -85,7 +86,6 @@
 
 </div>
 
-<%@ include file="footer.jsp" %>
 
 </body>
 </html>

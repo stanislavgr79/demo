@@ -152,7 +152,7 @@
 
         </appender>
 
-        <logger name="com.example.demo" level="DEBUG" additivity="true">
+        <logger name="com.example.demo" level="DEBUG" additivity="false">
             <appender-ref ref="FILE-APP" />
         </logger>
         <logger name="org.springframework" level="INFO" additivity="true" >

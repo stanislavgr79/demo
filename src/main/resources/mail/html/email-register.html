@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+    Hello, <span th:text="${#ctx.name}"></span>!
+
+<p>
+    You have been successfully registered to the <b>Shop.ru</b> on
+    <span th:text="${#ctx.subscriptionDate}"></span>
+</p>
+
+    <p>
+        Your password: <span th:text="${#ctx.pass}"></span>
+    </p>
+
+<p>
+    Regards, <em>The Shop.ru Team</em>
+</p>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.controller.HomeController;
 import com.example.demo.dao.repository.CustomerRepository;
 import com.example.demo.dao.repository.RoleRepository;
 import com.example.demo.domain.entity.person.Address;
@@ -7,6 +8,7 @@ import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.person.Role;
 import com.example.demo.domain.entity.person.User;
 import com.example.demo.domain.entity.shop.Order;
+import com.example.demo.mail.EmailService;
 import com.example.demo.security.RegistrationForm;
 import com.example.demo.service.CustomerService;
 import com.google.common.collect.Lists;
@@ -17,7 +19,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 @Service
@@ -33,6 +37,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private EmailService emailService;
 
 
     @Override
@@ -76,8 +83,15 @@ public class CustomerServiceImpl implements CustomerService {
     public void createCustomer(RegistrationForm registrationForm) {
 
         Customer customer = buildCustomerFromRegistrationForm(registrationForm);
-
         User user = customer.getUser();
+
+        try {
+            emailService.sendRegisterMail(customer.getFirstName()+ " " + customer.getLastName(),
+                    user.getEmail(), user.getPassword());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         logger.info("User code password successfully, User="+ user);
         Set<Role> roles = user.getRoles();

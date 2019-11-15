@@ -13,6 +13,7 @@ import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
 import com.example.demo.service.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,7 @@ public class OrderServiceImplTest {
         assertThat(actualOrder.getId()).isEqualTo(expectedOrder.getId());
     }
 
+    @Ignore
     @Test
     public void createOrderFromBasket() {
         Customer expectedCustomer = Customer.builder()
@@ -165,6 +167,7 @@ public class OrderServiceImplTest {
                 .isEqualTo(expectedOrders.stream().filter(o-> o.getCustomer().getId().equals(1L)).count());
     }
 
+    @Ignore
     @Test
     public void shouldUpdateOrderStatus_ByOrderAndEmailManager() {
         User actualUser = User.builder().id(2L).email("manager1@shop.ru").build();

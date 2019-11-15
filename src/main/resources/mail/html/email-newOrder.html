@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+Hello, <span th:text="${#ctx.name}"></span>!
+
+<p>
+    You have been successfully have new Order on the <b>Shop.ru</b>
+    <span th:text="${#ctx.createDate}"></span>
+</p>
+<p>Your order details are:</p>
+
+<table border="1">
+    <tr>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Products Quantity</th>
+        <th>Products TotalPrice</th>
+    </tr>
+
+    <tr th:each="od : ${orderDetail}">
+        <td th:utext="${od.product.productName}">Product Name</td>
+        <td th:utext="${od.product.productPrice}">Product Price</td>
+        <td th:utext="${od.quantity}">Products Quantity</td>
+        <td th:utext="${od.price}">Products TotalPrice</td>
+    </tr>
+
+</table>
+<p>
+    Number Your Order: <span th:text="${#ctx.order.id}"></span>
+</p>
+
+<p>
+    Total Quantity products: <span th:text="${#ctx.order.totalQuantity}"></span>
+</p>
+
+<p>
+    Total Price order: <span th:text="${#ctx.order.totalPrice}"></span>
+</p>
+
+<p>
+    When our manager success Your order, You have new e-mail about it.
+</p>
+<p>
+    Regards, <br />
+    &emsp; <em>The Shop.ru Team</em>
+</p>
+</body>
+</html>

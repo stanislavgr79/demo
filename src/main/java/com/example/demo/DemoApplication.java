@@ -13,7 +13,7 @@ public class DemoApplication implements WebMvcConfigurer {
 
 	@PostConstruct
 	void started() {
-		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT+3"));
 	}
 
 	public static void main(String[] args) {
