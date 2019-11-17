@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dao.repository.RoleRepository;
+import com.example.demo.dao.RoleRepository;
 import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.person.Role;
 import com.example.demo.domain.entity.shop.Order;

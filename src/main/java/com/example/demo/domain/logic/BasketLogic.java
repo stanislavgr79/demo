@@ -1,8 +1,8 @@
-package com.example.demo.dao;
+package com.example.demo.domain.logic;
 
 import com.example.demo.domain.model.Basket;
 
-public interface BasketDao {
+public interface BasketLogic {
 
     void clearOrderDetailList(Basket basket);
 

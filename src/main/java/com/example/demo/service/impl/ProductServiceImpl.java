@@ -1,12 +1,14 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dao.repository.ProductRepository;
+import com.example.demo.dao.ProductRepository;
 import com.example.demo.domain.entity.shop.Product;
 import com.example.demo.service.ProductService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,14 +22,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Product> getAllProducts() {
-        List<Product> productList = productRepository.findAllByEnabledTrueOrderByProductName();
-        logger.info("FindAllProduct with status Enabled, productList_size= " + productList.size());
-        return productList;
-    }
 
     @Override
     public List<Product> getAllDisabledProducts() {
@@ -73,4 +67,9 @@ public class ProductServiceImpl implements ProductService {
         logger.info("Product edit successfully, product= " + product);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Product> findAllByEnabledTrueOrderByProductName(int page) {
+        return productRepository.findAllByEnabledTrueOrderByProductName(PageRequest.of(page, 3));
+    }
 }

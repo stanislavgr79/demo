@@ -2,8 +2,8 @@ package com.example.demo.service.impl;
 
 import static org.junit.Assert.*;
 
-import com.example.demo.dao.repository.CustomerRepository;
-import com.example.demo.dao.repository.RoleRepository;
+import com.example.demo.dao.CustomerRepository;
+import com.example.demo.dao.RoleRepository;
 import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.person.Role;
 import com.example.demo.domain.entity.person.User;
@@ -108,12 +108,6 @@ public class CustomerServiceImplTest {
         assertThat(actualCustomer.getId()).isEqualTo(expectedCustomer.getId());
     }
 
-    @Test
-    public void shouldDeleteCustomer_ByCustomerId() {
-        doNothing().when(customerRepository).deleteById(5L);
-        customerService.deleteCustomer(5L);
-        verify(customerRepository, times(1)).deleteById(5L);
-    }
 
     @Test
     public void shouldUpdateCustomer_CallSaveMethodOfCustomerRepository() {

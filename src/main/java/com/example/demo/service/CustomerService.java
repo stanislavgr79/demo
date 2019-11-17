@@ -17,8 +17,6 @@ public interface CustomerService {
 
     Customer getCustomerByEmail(String email);
 
-    void deleteCustomer(Long id);
-
     void updateCustomer(Customer customer);
 
     Customer buildCustomerFromRegistrationForm(RegistrationForm registrationForm);

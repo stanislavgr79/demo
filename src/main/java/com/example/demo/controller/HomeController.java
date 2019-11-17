@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dao.repository.RoleRepository;
+import com.example.demo.dao.RoleRepository;
 import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.shop.Order;
 import com.example.demo.service.CustomerService;
@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 

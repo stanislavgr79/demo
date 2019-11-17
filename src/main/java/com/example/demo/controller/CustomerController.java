@@ -57,14 +57,4 @@ public class CustomerController {
         return "redirect:/admin/getAllCustomers";
     }
 
-//    //////////////////////////////////////////////////////////////////
-//    @RequestMapping(value = "admin/customer/delete/{customerId}")
-//    public String deleteCustomer(@PathVariable(value = "customerId") Long id) {
-//        logger.info("Customer send for delete by customerId= " + id);
-//        customerService.deleteCustomer(id);
-//        return "redirect:/admin/getAllCustomers";
-//    }
-//    ///////////////////////////////////////////////////////////////////
-
-
 }

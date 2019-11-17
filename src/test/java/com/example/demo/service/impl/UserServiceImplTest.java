@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dao.repository.RoleRepository;
-import com.example.demo.dao.repository.UserRepository;
+import com.example.demo.dao.RoleRepository;
+import com.example.demo.dao.UserRepository;
 import com.example.demo.domain.entity.person.Role;
 import com.example.demo.domain.entity.person.User;
 import com.example.demo.domain.model.UserDTO;

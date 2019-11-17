@@ -1,4 +1,4 @@
-package com.example.demo.dao.repository;
+package com.example.demo.dao;
 
 import com.example.demo.domain.entity.person.Customer;
 import org.springframework.data.repository.CrudRepository;

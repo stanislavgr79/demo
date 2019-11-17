@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dao.repository.OrderRepository;
+import com.example.demo.dao.OrderRepository;
 import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.person.User;
 import com.example.demo.domain.entity.shop.Order;

@@ -2,8 +2,8 @@ package com.example.demo.service.impl;
 
 import static org.junit.Assert.*;
 
-import com.example.demo.dao.repository.OrderDetailRepository;
-import com.example.demo.dao.repository.OrderRepository;
+import com.example.demo.dao.OrderDetailRepository;
+import com.example.demo.dao.OrderRepository;
 import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.person.User;
 import com.example.demo.domain.entity.shop.Order;

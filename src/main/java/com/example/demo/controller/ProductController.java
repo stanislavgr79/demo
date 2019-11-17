@@ -5,6 +5,7 @@ import com.example.demo.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,12 +24,21 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @RequestMapping(value = "getAllProducts", method = RequestMethod.GET)
-    public String listProducts (Model uiModel){
-        List<Product> products = productService.getAllProducts();
-        logger.info("Model take List<Product> with status Enabled, listProducts_size= " + products.size());
-        uiModel.addAttribute("products", products);
-        return "productList";
+    @RequestMapping(value= "getAllProductsEnabled/{page_id}", method= RequestMethod.GET)
+    @ResponseBody
+    public ModelAndView getAllProductsEnabled(@PathVariable(value = "page_id") int page_id) {
+        Page<Product> pageProduct = productService.findAllByEnabledTrueOrderByProductName(page_id);
+        List<Product> productList = pageProduct.getContent();
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("products", productList);
+        mav.addObject("showPrevious", pageProduct.hasPrevious());
+        mav.addObject("showNext", pageProduct.hasNext());
+        mav.addObject("previousPage", page_id - 1);
+        mav.addObject("nextPage", page_id + 1);
+        mav.setViewName("productList");
+        logger.info("Model take List<Product> with status Enabled, listProducts_size= " + productList.size());
+        return mav;
     }
 
     @RequestMapping(value = "admin/product/getProductsDisabled", method = RequestMethod.GET)
@@ -50,7 +60,7 @@ public class ProductController {
     public String deleteProduct(@PathVariable(value = "productId") Long productId) {
         logger.info("Product will have status disabled by productId= " + productId);
         productService.deleteProduct(productId);
-        return "redirect:/getAllProducts";
+        return "redirect:/getAllProductsEnabled/0";
     }
 
 
@@ -83,7 +93,7 @@ public class ProductController {
     public String editProduct(@ModelAttribute(value = "product") Product product) {
         logger.info("Product take from model and will send to service for update , product= " + product);
         productService.editProduct(product);
-        return "redirect:/getAllProducts";
+        return "redirect:/getAllProductsEnabled/0";
     }
 
 }

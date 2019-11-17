@@ -1,7 +1,7 @@
-package com.example.demo.dao.impl;
+package com.example.demo.domain.logic.impl;
 
 
-import com.example.demo.dao.BasketDao;
+import com.example.demo.domain.logic.BasketLogic;
 import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
 import org.apache.commons.math3.util.Precision;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class BasketDaoImpl implements BasketDao {
+public class BasketLogicImpl implements BasketLogic {
 
-    private static final Logger logger = LoggerFactory.getLogger(BasketDaoImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(BasketLogicImpl.class);
 
     @Override
     public void clearOrderDetailList(Basket basket) {

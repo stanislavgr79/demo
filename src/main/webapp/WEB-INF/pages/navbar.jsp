@@ -35,10 +35,11 @@
             <ul class="nav navbar-nav">
                 <li><a href=" <c:url value="/index" />">Home</a></li>
 
-
-                <li><a href=" <c:url value="/getAllProducts" />">Product List</a></li>
+                <li><a href=" <c:url value="/getAllProductsEnabled/0" />">Product List</a></li>
 
                 <security:authorize access="hasAnyRole({'ROLE_ADMIN','ROLE_MANAGER'})">
+
+
                     <li>
                         <a href=" <c:url value="/admin/product/getProductsDisabled" />">
                             Products disabled</a>

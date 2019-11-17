@@ -1,6 +1,6 @@
-package com.example.demo.dao.impl;
+package com.example.demo.domain.logic.impl;
 
-import com.example.demo.dao.BasketDao;
+import com.example.demo.domain.logic.BasketLogic;
 import com.example.demo.domain.entity.shop.Product;
 import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class BasketDaoImplTest {
+public class BasketLogicImplTest {
 
     private static Basket basket;
 
@@ -41,7 +41,7 @@ public class BasketDaoImplTest {
     }
 
     @Autowired
-    private BasketDao basketDao;
+    private BasketLogic basketLogic;
 
     @Before
     public void setUp() {
@@ -55,7 +55,7 @@ public class BasketDaoImplTest {
 
     @Test
     public void shouldClearOrderDetailListInBasket() {
-        basketDao.clearOrderDetailList(basket);
+        basketLogic.clearOrderDetailList(basket);
 
         assertEquals(basket.getOrderDetail().size(), 0);
         assertEquals(basket.getTotalQuantity(), 0);
@@ -64,7 +64,7 @@ public class BasketDaoImplTest {
 
     @Test
     public void shouldRemoveOrderDetailDTOById() {
-        basketDao.removeOrderDetailDTOById(basket, 12L);
+        basketLogic.removeOrderDetailDTOById(basket, 12L);
 
         assertEquals(basket.getOrderDetail().size(), 1);
         assertEquals(basket.getTotalQuantity(), 3);
@@ -74,19 +74,19 @@ public class BasketDaoImplTest {
 
     @Test
     public void shouldReturnBasketTotalPrice() {
-        double result = basketDao.getBasketTotalPriceFromStreamOrderDetails(basket);
+        double result = basketLogic.getBasketTotalPriceFromStreamOrderDetails(basket);
         assertThat(result).isEqualTo(35.8);
     }
 
     @Test
     public void shouldReturnBasketTotalQuantity() {
-        int result = basketDao.getBasketTotalQuantityFromStreamOrderDetails(basket);
+        int result = basketLogic.getBasketTotalQuantityFromStreamOrderDetails(basket);
         assertThat(result).isEqualTo(5);
     }
 
     @Test
     public void shouldUpdateSubPriceInOrderDetailListInBasket() {
-        basketDao.updateSubPriceInOrderDetailListOfBasket(basket);
+        basketLogic.updateSubPriceInOrderDetailListOfBasket(basket);
         double result = basket.getOrderDetail().stream()
                 .mapToDouble(OrderDetailDTO::getPrice)
                 .sum();

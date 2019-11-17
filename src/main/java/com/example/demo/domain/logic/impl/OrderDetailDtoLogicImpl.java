@@ -1,7 +1,7 @@
-package com.example.demo.dao.impl;
+package com.example.demo.domain.logic.impl;
 
-import com.example.demo.dao.BasketDao;
-import com.example.demo.dao.OrderDetailDtoDao;
+import com.example.demo.domain.logic.BasketLogic;
+import com.example.demo.domain.logic.OrderDetailDtoLogic;
 import com.example.demo.domain.entity.shop.Product;
 import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
@@ -14,12 +14,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class OrderDetailDtoDaoImpl implements OrderDetailDtoDao {
+public class OrderDetailDtoLogicImpl implements OrderDetailDtoLogic {
 
-    private static final Logger logger = LoggerFactory.getLogger(OrderDetailDtoDaoImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(OrderDetailDtoLogicImpl.class);
 
     @Autowired
-    private BasketDao basketDao;
+    private BasketLogic basketLogic;
 
     @Override
     public void addProductToOrderDetailDTO(Basket basket, Product product) {
@@ -49,8 +49,8 @@ public class OrderDetailDtoDaoImpl implements OrderDetailDtoDao {
 
         basket.setOrderDetail(orderDetailDTOList);
 
-        basket.setTotalQuantity(basketDao.getBasketTotalQuantityFromStreamOrderDetails(basket));
-        basket.setTotalPrice(basketDao.getBasketTotalPriceFromStreamOrderDetails(basket));
+        basket.setTotalQuantity(basketLogic.getBasketTotalQuantityFromStreamOrderDetails(basket));
+        basket.setTotalPrice(basketLogic.getBasketTotalPriceFromStreamOrderDetails(basket));
         logger.info("Product add to Basket, and update TotalQuantity, TotalPrice in Basket; " +
                 "product= " + product + "basket= " + basket);
     }

@@ -1,4 +1,4 @@
-package com.example.demo.dao.impl;
+package com.example.demo.domain.logic.impl;
 
 import com.example.demo.domain.entity.shop.Product;
 import com.example.demo.domain.model.Basket;
@@ -21,10 +21,10 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class OrderDetailDtoDaoImplTest {
+public class OrderDetailDtoLogicImplTest {
 
     @Autowired
-    private OrderDetailDtoDaoImpl orderDetailDtoDaoImpl;
+    private OrderDetailDtoLogicImpl orderDetailDtoDaoImpl;
 
     private static Basket basket;
     private static Product product;

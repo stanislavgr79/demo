@@ -1,8 +1,7 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.controller.HomeController;
-import com.example.demo.dao.repository.CustomerRepository;
-import com.example.demo.dao.repository.RoleRepository;
+import com.example.demo.dao.CustomerRepository;
+import com.example.demo.dao.RoleRepository;
 import com.example.demo.domain.entity.person.Address;
 import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.person.Role;
@@ -21,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 @Service
@@ -40,7 +38,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private EmailService emailService;
-
 
     @Override
     @Transactional(readOnly = true)
@@ -65,12 +62,6 @@ public class CustomerServiceImpl implements CustomerService {
         logger.info("Customer find (getCustomerByEmail) successfully, Customer= "+ customer
                 + " email= " + email);
         return customer;
-    }
-
-    @Override
-    public void deleteCustomer(Long id) {
-        customerRepository.deleteById(id);
-        logger.info("Customer delete successfully by id= " + id);
     }
 
     @Override
