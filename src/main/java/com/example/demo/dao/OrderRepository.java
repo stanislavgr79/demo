@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.domain.entity.shop.Order;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -15,8 +16,10 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     Order getById(Long id);
 
+    @EntityGraph(value = "Order.customer", type = EntityGraph.EntityGraphType.LOAD)
     List<Order> findAllByCustomerNotNullOrderByOrderCreateDateDesc();
 
+    @EntityGraph(value = "Order.customer", type = EntityGraph.EntityGraphType.LOAD)
     List<Order> findAllByCustomer_IdOrderByOrderCreateDateDesc(Long id);
 
     @Modifying

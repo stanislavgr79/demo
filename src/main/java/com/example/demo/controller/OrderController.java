@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,6 +33,7 @@ public class OrderController {
     }
 
     @RequestMapping("order/{orderId}")
+    @Transactional
     public @ResponseBody ModelAndView viewOrder(@PathVariable(value = "orderId") Long id) {
         Order order = orderService.getOrderById(id);
         logger.info("Order send to ModelAnView, order= " + order);

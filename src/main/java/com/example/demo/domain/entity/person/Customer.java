@@ -21,6 +21,8 @@ import java.util.List;
 @Builder(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(of = {"firstName", "lastName", "user"})
 @ToString(exclude = {"address", "ordersList"})
+@NamedEntityGraph(name = "Customer.user",
+        attributeNodes = @NamedAttributeNode("user"))
 public class Customer implements Serializable {
 
     @Id
@@ -30,22 +32,18 @@ public class Customer implements Serializable {
     private String firstName;
     private String lastName;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @Builder.Default
     @Fetch(FetchMode.SELECT)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @OneToMany(mappedBy = "customer")
     private List<Order> ordersList = new ArrayList<>();
-
-    public void addOrder(Order order){
-        ordersList.add(order);
-    }
 
 }

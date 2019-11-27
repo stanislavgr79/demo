@@ -43,7 +43,7 @@ public class User implements Serializable {
 
     @Builder.Default
     @Fetch(FetchMode.SELECT)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "users_roles",

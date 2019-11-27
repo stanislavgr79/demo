@@ -20,10 +20,10 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 @Service
 public class EmailServiceImpl implements EmailService{
 
+    private final String EMAIL_TEMPLATE_ENCODING = StandardCharsets.UTF_8.name();
+
     @Autowired
     private MailConfigProperties mailConfigProperties;
-
-    private final String EMAIL_TEMPLATE_ENCODING = StandardCharsets.UTF_8.name();
 
     @Autowired
     private JavaMailSender emailSender;

@@ -42,7 +42,7 @@
                 <th>Edit</th>
 
 <%--                <security:authorize access="hasRole({'ROLE_ADMIN'})">--%>
-<%--                <th>Delete</th>--%>
+                <th>View</th>
 <%--                </security:authorize>--%>
 
             </tr>
@@ -75,6 +75,12 @@
 <%--                        </a>--%>
 <%--                    </td>--%>
 <%--                    </security:authorize>--%>
+                    <td>
+                        <a href="<c:url value="getCustomer/${customer.id}" />"
+                           class="btn btn-success" style="margin-left: 15px">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                        </a>
+                    </td>
                 </tr>
 
             </c:forEach>

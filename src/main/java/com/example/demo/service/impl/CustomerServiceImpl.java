@@ -6,11 +6,11 @@ import com.example.demo.domain.entity.person.Address;
 import com.example.demo.domain.entity.person.Customer;
 import com.example.demo.domain.entity.person.Role;
 import com.example.demo.domain.entity.person.User;
-import com.example.demo.domain.entity.shop.Order;
 import com.example.demo.mail.EmailService;
 import com.example.demo.security.RegistrationForm;
 import com.example.demo.service.CustomerService;
 import com.google.common.collect.Lists;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +51,8 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional(readOnly = true)
     public Customer getCustomerById(Long id) {
         Customer customer = customerRepository.getById(id);
+        Hibernate.initialize(customer.getUser());
+        Hibernate.initialize(customer.getOrdersList());
         logger.info("Customer find (getCustomerById) successfully, Customer= "+ customer);
         return customer;
     }
@@ -59,6 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional(readOnly = true)
     public Customer getCustomerByEmail(String email) {
         Customer customer = customerRepository.getByUser_Email(email);
+        Hibernate.initialize(customer.getUser());
         logger.info("Customer find (getCustomerByEmail) successfully, Customer= "+ customer
                 + " email= " + email);
         return customer;
@@ -122,12 +125,6 @@ public class CustomerServiceImpl implements CustomerService {
         user.setPassword(registrationForm.getPassword());
         logger.info("Customer fill fields from RegistrationForm, Customer="+ customer);
         return customer;
-    }
-
-    @Override
-    public void addOrderToCustomerOrderList(Customer customer, Order order){
-        customer.getOrdersList().add(order);
-        logger.info("Customer add Order to him list<Order>, Customer="+ customer + ", order= " + order);
     }
 
 }

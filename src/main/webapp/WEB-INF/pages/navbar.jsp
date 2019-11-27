@@ -82,7 +82,7 @@
                     </security:authorize>
 
                     <security:authorize access="hasAnyRole({'ROLE_USER'})">
-                        <li><a href="<c:url value="basket/getCurrentBasket" />"><span
+                        <li><a href="<c:url value="/basket/getCurrentBasket" />"><span
                                 class="glyphicon glyphicon-shopping-cart"></span> Basket</a></li>
                     </security:authorize>
                     <li><a href="<c:url value="/logout" />"><span

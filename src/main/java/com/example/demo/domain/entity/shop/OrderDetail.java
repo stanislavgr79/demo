@@ -30,12 +30,12 @@ public class OrderDetail implements Serializable {
     private double price;
 
     @Fetch(FetchMode.SELECT)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToOne(fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orders_id")
     private Order order;
 

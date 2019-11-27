@@ -7,11 +7,11 @@ import com.example.demo.domain.model.OrderDetailDTO;
 import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Repository
+@Component
 public class BasketLogicImpl implements BasketLogic {
 
     private static final Logger logger = LoggerFactory.getLogger(BasketLogicImpl.class);

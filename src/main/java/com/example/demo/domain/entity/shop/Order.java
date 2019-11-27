@@ -18,6 +18,9 @@ import java.util.List;
 @Builder(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(of = {"totalPrice", "totalQuantity", "customer"})
 @ToString(exclude = {"orderDetail", "customer"})
+@NamedEntityGraph(name = "Order.customer",
+        attributeNodes = @NamedAttributeNode(value = "customer", subgraph = "customer"),
+        subgraphs = @NamedSubgraph(name = "customer", attributeNodes = @NamedAttributeNode("user")))
 public class Order implements Serializable {
 
     @Id
@@ -37,7 +40,7 @@ public class Order implements Serializable {
     private StatusOrder statusOrder;
 
     @Builder.Default
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrderDetail> orderDetail = new ArrayList<>();
 
     @ManyToOne

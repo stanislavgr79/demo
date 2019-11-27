@@ -9,6 +9,7 @@ import com.example.demo.domain.model.Basket;
 import com.example.demo.domain.model.OrderDetailDTO;
 import com.example.demo.mail.EmailService;
 import com.example.demo.service.*;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,6 @@ public class OrderServiceImpl implements OrderService {
     private OrderDetailService orderDetailService;
 
     @Autowired
-    private CustomerService customerService;
-
-    @Autowired
     private CustomerOrderService customerOrderService;
 
     @Autowired
@@ -50,6 +48,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(readOnly = true)
     public Order getOrderById(Long id) {
         Order order = orderRepository.getById(id);
+        Hibernate.initialize(order.getOrderDetail());
         logger.info("Order find by id successfully, order= " + order);
         return order;
     }
@@ -71,13 +70,9 @@ public class OrderServiceImpl implements OrderService {
         updateInfoQuantityAndPriceInOrderFromBasket(order, basket);
         order.setCustomer(customer);
         saveOrder(order);
-
         updateOrderBySaveOrderDetailFromBasket(order, basket);
-//        customerService.addOrderToCustomerOrderList(customer, order);
-        customer.addOrder(order);
-        logger.info("Order fill fields from Basket, order= " + order + " basket= " + basket);
 
-        customerService.updateCustomer(customer);
+        logger.info("Order fill fields from Basket, order= " + order + " basket= " + basket);
         logger.info("Order save to customer, customer= " + customer + " order= " + order);
         customerOrderService.createCustomerOrderByCustomerAndOrder(customer, order);
 
@@ -148,9 +143,13 @@ public class OrderServiceImpl implements OrderService {
             orderDetail.setQuantity(el.getQuantity());
             orderDetail.setOrder(order);
 
-            orderDetails.add(orderDetail);
             orderDetailService.saveOrderDetail(orderDetail);
+            orderDetails.add(orderDetail);
+
         }
+
+        orderRepository.save(order);
+
         logger.info("Save orderDetail to order from basket," +
                 " orderDetailBasket_size= " + basketOrderDetail.size() +
                 " orderDetailSize after save in order_id =" + order.getId() +

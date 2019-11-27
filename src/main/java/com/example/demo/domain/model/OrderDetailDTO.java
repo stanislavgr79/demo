@@ -15,18 +15,4 @@ public class OrderDetailDTO {
     private double price;
 
     private Product product;
-
-//    public double getSubTotalPrice() {
-//        return quantity * product.getProductPrice();
-//    }
-
-//    public void setSubTotalPrice(){
-//        this.price = quantity * product.getProductPrice();
-//    }
-
-//    public double getProductPrice() {
-//        return product.getProductPrice();
-//    }
-
-
 }

@@ -83,7 +83,6 @@ public class UserServiceImpl implements UserService {
         Set<Role> roles = user.getRoles();
         userDTO.getRoleSet()
                 .forEach(o->roles.add(roleRepository.getById(o.getId())));
-//                .forEach(o->roles.add(roleRepository.getById(o.getId()).findById(o.getId()).get()));
         user.setRoles(roles);
 
         User secureUser = customerService.updateUserSecurity(user);

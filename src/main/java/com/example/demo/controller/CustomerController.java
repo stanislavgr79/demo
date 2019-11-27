@@ -40,7 +40,7 @@ public class CustomerController {
     public ModelAndView getCustomerById(@PathVariable(value = "customerId") Long id) {
         Customer customer = customerService.getCustomerById(id);
         logger.info("Customer by Id send to Model, customer= " + customer);
-        return new ModelAndView("customerPage", "customerEntity", customer);
+        return new ModelAndView("viewCustomer", "customer", customer);
     }
 
     @RequestMapping(value = "admin/customer/update/{id}")

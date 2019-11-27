@@ -83,7 +83,7 @@ public class BasketController {
         logger.info("Take Basket and send with current Customer for create Order," +
                 " basket= " + basket +
                 " customer= " + customer);
-        return "redirect:/getAllProducts";
+        return "redirect:/accountInfo";
     }
 
     @RequestMapping("basket/add/{productId}")

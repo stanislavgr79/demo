@@ -167,7 +167,7 @@ public class BasketControllerTest {
                 .sessionAttr("basket", sessionBasket)
                 .flashAttr("Basket", expectedBasket)
         )
-                .andExpect(MockMvcResultMatchers.redirectedUrl("/getAllProducts"));
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/accountInfo"));
 
         MvcResult mvcResult  = result.andReturn();
 

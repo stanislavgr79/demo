@@ -23,5 +23,4 @@ public interface CustomerService {
 
     User updateUserSecurity(User user);
 
-    void addOrderToCustomerOrderList(Customer customer, Order order);
 }

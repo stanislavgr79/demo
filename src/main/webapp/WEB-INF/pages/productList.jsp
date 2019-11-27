@@ -98,7 +98,7 @@
         <!-- Pagination links in spring mvc. -->
         <ul class="pagination pagination-sm">
             <c:if test="${showPrevious}">
-                <li class="page-item"><a class="page-link" href="/getAllProductsEnabled/${previousPage}">previous</a></li>
+                <li class="page-item"><a class="page-link" href="/getAllProductsEnabled/${previousPage}">back</a></li>
             </c:if>
             <c:if test="${showNext}">
                 <li class="page-item"><a class="page-link" href="/getAllProductsEnabled/${nextPage}">next</a></li>

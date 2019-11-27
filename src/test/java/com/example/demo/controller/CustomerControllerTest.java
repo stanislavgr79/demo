@@ -110,12 +110,12 @@ public class CustomerControllerTest {
                 .with(SecurityRequestPostProcessors.userDetailsService(MANAGER)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(model().size(1))
-                .andExpect(model().attributeExists("customerEntity"))
-                .andExpect(MockMvcResultMatchers.view().name("customerPage"))
+                .andExpect(model().attributeExists("customer"))
+                .andExpect(MockMvcResultMatchers.view().name("viewCustomer"))
                 ;
 
         MvcResult mvcResult  = result.andReturn();
-        Customer actualCustomer = (Customer) mvcResult.getRequest().getAttribute("customerEntity");
+        Customer actualCustomer = (Customer) mvcResult.getRequest().getAttribute("customer");
         verify(customerService, times(1)).getCustomerById(12L);
         assertThat(actualCustomer).isEqualTo(expectedCustomer);
         assertThat(mvcResult.getRequest().getPathInfo()).isEqualTo("/admin/getCustomer/12");
