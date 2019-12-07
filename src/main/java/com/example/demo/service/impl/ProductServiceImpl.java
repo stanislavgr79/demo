@@ -34,6 +34,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public Product getProductById(Long productId) {
         Product product = productRepository.getById(productId);
+
         logger.info("Product find by id, product= " + product);
         return product;
     }

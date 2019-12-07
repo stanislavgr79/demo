@@ -26,4 +26,5 @@ public class Product implements Serializable {
 
     @Builder.Default
     private boolean enabled = true;
+
 }
